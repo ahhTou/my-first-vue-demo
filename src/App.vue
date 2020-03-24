@@ -1,32 +1,32 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <user-hatch></user-hatch>
+    <tow-color-bg />
+    <back-to-top />
+    <btn-log-reg />
   </div>
 </template>
 
+<script>
+import UserHatch from "components/common/UserHatch/UserHatch";
+import towColorBg from "components/common/twoColorBackGround/bg.vue";
+import backToTop from "./components/common/backToTop/mian";
+import BtnLogReg from "./components/common/button/login&register/mian";
+export default {
+  name: "App",
+  components: {
+    backToTop,
+    UserHatch,
+    towColorBg,
+    BtnLogReg
+  }
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+@import "./assets/css/base.css";
+@import "./assets/css/normalize.css";
+body{
+  height: 100vw;
 }
 </style>
