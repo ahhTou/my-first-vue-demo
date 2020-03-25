@@ -19,7 +19,7 @@
           :style="panelIn"
         >
           <p id="username">{{ username }}</p>
-          <div v-for="(item, index) in hatchManager" id="listBox" :key="item">
+          <div v-for="(item, index) in hatchManager" id="listBox" :key="index">
             <a :href="item.id>0?item.url:null">
               <div :class="item.id > 0 ? 'panelList' : 'panelListOut'" :key="index">
                 <span class="fontLogo">{{ item.logoFont }}</span>

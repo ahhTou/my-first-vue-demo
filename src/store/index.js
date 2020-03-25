@@ -5,6 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    views:{
+      show:false,
+      index:0,
+      bg:[
+        {},
+        {img:require("assets/img/bg3.jpg")}
+    ]
+
+    }
   },
   mutations: {
     windowsToTop(){

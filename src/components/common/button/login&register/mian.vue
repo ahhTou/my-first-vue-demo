@@ -1,13 +1,11 @@
 <template>
   <div>
     <div id="btnline">
-      <transition>
+      <div @mouseleave="f1" @mouseenter="f2">
         <btn-login />
-      </transition>
+      </div>
 
-      <transition>
-        <btn-register />
-      </transition>
+      <btn-register :anm='itAnm'/>
     </div>
   </div>
 </template>
@@ -16,12 +14,25 @@
 <script>
 import btnLogin from "./Login";
 import btnRegister from "./Register";
-
 export default {
   name: "loginAndregisterBtn",
   components: {
     btnLogin,
     btnRegister
+  },
+
+  data() {
+    return {
+        itAnm:false,
+    };
+  },
+  methods: {
+    f1() {
+      this.itAnm = true;
+    },
+    f2() {
+      this.itAnm = false;
+    }
   }
 };
 </script>
@@ -30,11 +41,22 @@ export default {
 <style scoped>
 #btnline {
   display: flex;
+  width: auto;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  display: inline-block;
-  width: 500px;
-  /* background: black; */
+}
+.normal {
+  opacity: 1;
+}
+.toAnm1 {
+  animation: anm 0.1s 0.1s linear infinite alternate;
+}
+@keyframes anm {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

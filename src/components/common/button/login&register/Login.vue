@@ -1,7 +1,6 @@
 <template>
   <span id="body1">
     <div id="btn">登入</div>
-
   </span>
 </template>
 
@@ -16,9 +15,9 @@ export default {
 <style scoped>
 #body1 {
   float: left;
-  width: 230px;
+  /* width: 230px; */
   height: 100px;
-
+      margin: 0px 10px 0px 30px;
   display: flex;
   justify-content: center;
   align-items: center;

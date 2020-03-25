@@ -19,19 +19,19 @@ export default {
 @import "../../../assets/css/normalize.css";
 #up {
   background-color: rgb(189, 208, 207);
-  height: 30vh;
+  height: 50vh;
   overflow: hidden;
-  transform: rotate(-10deg) scale(1.5);
+  transform: rotate(10deg) scale(1.5);
 }
 #f {
   overflow: hidden;
-  width: 100vw;
+  width: 1920px;
   height: 100vh;
 }
 #all {
   /* position: fixed; */
   position: absolute;
-  top:-100px;
-  z-index: -10;
+  top:-300px;
+  z-index: -5;
 }
 </style>

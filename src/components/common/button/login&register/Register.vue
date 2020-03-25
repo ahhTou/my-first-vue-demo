@@ -1,29 +1,60 @@
 <template>
   <div id="body2">
-    <div id="btn">
-      <span id="span1">+</span>
-      <span id="span2">注册</span>
-    </div>
+      <div id="btn" @mouseenter="show" @mouseleave="unshow" :class="isAnm">
+        <span id="span1">+</span>
+        <transition name="span-fade" mode="out-in">
+          <span id="span2" v-if="isSpanShow">注册</span>
+        </transition>
+      </div>
   </div>
 </template>
 
 
 <script>
 export default {
-  name: "btnRegister"
+  name: "btnRegister",
+  props: ["anm"],
+  data() {
+    return {
+      isSpanShow: false,
+      isAnm: {
+        toAnm: false,
+        inAnm: false,
+      }
+    };
+  },
+  methods: {
+    show() {
+      this.isSpanShow = true;
+    },
+    unshow() {
+      this.isSpanShow = false;
+    }
+  },
+  watch: {
+    anm(val) {
+      if (!this.anm) {
+        this.isAnm.toAnm = true;
+        this.isAnm.inAnm = false;
+      } else {
+        this.isAnm.toAnm = false;
+        this.isAnm.inAnm = true;
+      }
+    }
+  }
 };
 </script>
 
 
 <style scoped>
 #body2 {
+    margin: 0px 30px 0px 10px;
   float: left;
   font-size: 17px;
-  width: 170px;
+  /* width: 170px; */
   height: 100px;
   display: flex;
   align-items: center;
-  transition: all 0.5s;
 }
 #btn {
   width: 60px;
@@ -35,14 +66,11 @@ export default {
   text-indent: 10px;
   color: white;
   box-shadow: 2px 2px 5px #aaa;
-  transition: all 0.5s;
-  transform-origin: 0% 50%;
+  transition: width 0.5s;
 }
 #btn:hover {
-  transform-origin: 0% 50%;
-  /* background: rgb(214, 238, 0); */
   width: 140px;
-  cursor:pointer;
+  cursor: pointer;
 }
 #span1 {
   width: 60px;
@@ -60,9 +88,56 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.span-fade-enter-active {
+  transition: all 0.8s;
+}
+
+.span-fade-leave-active {
+  transition: all 0.3s;
+}
+.span-fade-enter {
+  transform: translateX(-30px);
   opacity: 0;
 }
-#btn:hover #span2 {
-  opacity: 1;
+.span-fade-leave-to {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+
+.toAnm {
+  transform-origin: 50% 50%;
+  animation: anm 1s  ease;
+  animation-fill-mode:forwards
+}
+.inAnm {
+  transform: rotate(0deg);
+  /* opacity: 0; */
+  background: rgb(150,150,150);
+  transform-origin: 50% 50%;
+  animation: anmIn 1s  ease;
+  animation-fill-mode:forwards
+}
+@keyframes anm {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-180deg);
+    /* opacity: 0; */
+      background: rgb(177,177,177);
+  }
+}
+@keyframes anmIn {
+  0% {
+    transform: rotate(-180deg);
+          background: rgb(177,177,177);
+        /* opacity: 0; */
+  }
+  100% {
+    transform: rotate(0deg);
+    /* background: rgb(150,150,150); */
+    /* opacity: 1; */
+  }
 }
 </style>
