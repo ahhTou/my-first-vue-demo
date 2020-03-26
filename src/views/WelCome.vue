@@ -1,16 +1,14 @@
 <template>
-  <div>
+  <div id="body">
+    <nav-bar></nav-bar>
     <div id="bodyTitle">
-      <nav-bar></nav-bar>
       <div id="title">
         欢迎来到
         <div id="littleTitle">ahhTou的主页</div>
       </div>
     </div>
     <div id="Content">
-      <div id="span" @mouseenter="f1" @mouseleave="f2">
-        <content-plate></content-plate>
-      </div>
+      <content-plate></content-plate>
     </div>
   </div>
 </template>
@@ -18,22 +16,15 @@
 
 <script>
 import NavBar from "components/common/NavBar/navbar";
-import ContentPlate from "components/common/plate/Views";
+import ContentPlate from "components/common/plate/main";
 export default {
   name: "WelCome",
   components: {
     NavBar,
     ContentPlate
   },
-  methods: {
-    f1() {
-      this.$store.state.views.index = 1;
-      this.$store.state.views.show = true;
-    },
-    f2() {
-      this.$store.state.views.index = 0;
-      this.$store.state.views.show = false;
-    }
+  mounted() {
+    document.title = this.$route.meta.title;
   }
 };
 </script>
@@ -44,13 +35,13 @@ export default {
   font-size: 10rem;
   color: white;
   letter-spacing: 100px;
-  text-indent: 10px;
+  /* text-indent: 10px; */
   float: right;
 }
 #bodyTitle {
   width: 1920px;
-  /* height: 100px; */
   display: inline-block;
+  padding-bottom: 50px;
 }
 #littleTitle {
   font-size: 3rem;
@@ -60,13 +51,16 @@ export default {
   left: 530px;
 }
 #Content {
-  padding: 100px 200px 10px 200px;
+  display: flex;
+  justify-content: center;
 }
-#span {
-  width: 30rem;
-  height: 30rem;
-  position: relative;
-  /* z-index: 1; */
-  /* background: olive; */
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(100px);
 }
 </style>

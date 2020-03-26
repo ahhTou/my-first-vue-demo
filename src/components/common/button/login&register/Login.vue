@@ -1,13 +1,19 @@
 <template>
   <span id="body1">
-    <div id="btn">登入</div>
+    <div id="btn" @click="goto" >登入</div>
   </span>
 </template>
 
 
 <script>
 export default {
-  name: "btnLogin"
+  name: "btnLogin",
+    methods: {
+    goto() {
+      this.$store.state.welcomeIsShow = false;
+      this.$router.push("/login");
+    }
+  }
 }; 
 </script> 
 

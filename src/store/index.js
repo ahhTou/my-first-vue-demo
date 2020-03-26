@@ -5,12 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    welcomeIsShow:true,
     views:{
       show:false,
       index:0,
       bg:[
         {},
-        {img:require("assets/img/bg3.jpg")}
     ]
 
     }

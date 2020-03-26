@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <wel-come></wel-come>
+    
+    <router-view></router-view>
     <back-to-top />
     <tow-color-bg />
     <div :class="bgb"></div>
-    <div id="bg" :style="{background:'url(' + this.$store.state.views.bg[this.$store.state.views.index].img + ')', position:'fixed', zIndex:-11}"></div>
+    <div id="bg" :style="{background:'url(' + this.$store.state.views.bg[this.$store.state.views.index] + ')', position:'fixed', zIndex:-11}"></div>
   </div>
 </template>
 
 <script>
 import towColorBg from "components/common/twoColorBackGround/bg";
 import backToTop from "components/common/backToTop/mian";
-import WelCome from "components/WelCome"
 export default {
   name: "App",
   data() {
@@ -19,13 +19,13 @@ export default {
       bgb:{
         bgb1: true,
         bgb2: false
-      }
+      },
+      imgIndex:0,
     }
   },
   components: {
     backToTop,
     towColorBg,
-    WelCome
   },
   mounted(){
     if(this.$store.state.views.show){
@@ -36,13 +36,13 @@ export default {
   },
   computed:{
     isShow () {
-     return this.$store.state.views.show
-    }
+      return this.$store.state.views.show
+    },
   },
   watch:{
     isShow(val){
       this.bgb.bgb2 = val
-    }
+    },
   }
 };
 </script>
@@ -54,9 +54,6 @@ body{
   height: 200vw;
   position: relative;
   background: rgb(238,240,241);
-
-   /* background-size:cover;  
-   background-position: 0px -600px; */
 }
 #bg{
   position: fixed;
@@ -65,11 +62,9 @@ body{
   left: -50px;
   right: -50px;
   bottom: -50px;
+  filter: blur(3px);
   background-size:cover;  
   background-repeat: no-repeat;
-  /* background: rgb(238,240,241); */
-  /* background-image: url('./assets/img/bg3.jpg'); */
-  /* background-image:'~assets/img/bg3.jpg' */
 }
 .bgb1{
   position: fixed;
@@ -87,4 +82,5 @@ body{
 .bgb2{
   opacity: 0;
 }
+
 </style>

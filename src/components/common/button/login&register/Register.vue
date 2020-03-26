@@ -1,11 +1,11 @@
 <template>
   <div id="body2">
-      <div id="btn" @mouseenter="show" @mouseleave="unshow" :class="isAnm">
-        <span id="span1">+</span>
-        <transition name="span-fade" mode="out-in">
-          <span id="span2" v-if="isSpanShow">注册</span>
-        </transition>
-      </div>
+    <div id="btn" @mouseenter="show" @mouseleave="unshow" @click="goto" :class="isAnm">
+      <span id="span1">+</span>
+      <transition name="span-fade" mode="out-in">
+        <span id="span2" v-if="isSpanShow">注册</span>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
       isSpanShow: false,
       isAnm: {
         toAnm: false,
-        inAnm: false,
+        inAnm: false
       }
     };
   },
@@ -29,6 +29,12 @@ export default {
     },
     unshow() {
       this.isSpanShow = false;
+    },
+    goto() {
+      this.$store.state.welcomeIsShow = false;
+
+      document.title = this.$route.matched[0].meta.title;
+      this.$router.push("/register");
     }
   },
   watch: {
@@ -48,7 +54,7 @@ export default {
 
 <style scoped>
 #body2 {
-    margin: 0px 30px 0px 10px;
+  margin: 0px 30px 0px 10px;
   float: left;
   font-size: 17px;
   /* width: 170px; */
@@ -107,16 +113,16 @@ export default {
 
 .toAnm {
   transform-origin: 50% 50%;
-  animation: anm 1s  ease;
-  animation-fill-mode:forwards
+  animation: anm 1s ease;
+  animation-fill-mode: forwards;
 }
 .inAnm {
   transform: rotate(0deg);
   /* opacity: 0; */
-  background: rgb(150,150,150);
+  background: rgb(150, 150, 150);
   transform-origin: 50% 50%;
-  animation: anmIn 1s  ease;
-  animation-fill-mode:forwards
+  animation: anmIn 1s ease;
+  animation-fill-mode: forwards;
 }
 @keyframes anm {
   0% {
@@ -125,14 +131,14 @@ export default {
   100% {
     transform: rotate(-180deg);
     /* opacity: 0; */
-      background: rgb(177,177,177);
+    background: rgb(177, 177, 177);
   }
 }
 @keyframes anmIn {
   0% {
     transform: rotate(-180deg);
-          background: rgb(177,177,177);
-        /* opacity: 0; */
+    background: rgb(177, 177, 177);
+    /* opacity: 0; */
   }
   100% {
     transform: rotate(0deg);

@@ -51,7 +51,7 @@ export default {
 <style scoped>
 #all {
   position: fixed;
-  left: 10px;
+  right: 10px;
   bottom: 0px;
   width: 100px;
   height: 280px;
