@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    
     <router-view></router-view>
-    <back-to-top />
+
+    <back-to-top/>
     <tow-color-bg />
     <div :class="bgb"></div>
     <div id="bg" :style="{background:'url(' + this.$store.state.views.bg[this.$store.state.views.index] + ')', position:'fixed', zIndex:-11}"></div>
@@ -27,13 +27,6 @@ export default {
     backToTop,
     towColorBg,
   },
-  mounted(){
-    if(this.$store.state.views.show){
-        this.bgb.bgb2 = true
-    }else{
-       this.bgb.bgb2 = false
-    }
-  },
   computed:{
     isShow () {
       return this.$store.state.views.show
@@ -51,7 +44,7 @@ export default {
 @import "assets/css/base.css";
 @import "assets/css/normalize.css";
 body{
-  height: 200vw;
+  /* height: 200vw; */
   position: relative;
   background: rgb(238,240,241);
 }

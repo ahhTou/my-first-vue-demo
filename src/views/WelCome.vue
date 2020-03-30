@@ -1,12 +1,10 @@
 <template>
-  <div id="body">
+  <div>
+    <body-title>
+      <template v-slot:big>欢迎来到</template>
+      <template v-slot:little>ahhtou的主页</template>
+    </body-title>
     <nav-bar></nav-bar>
-    <div id="bodyTitle">
-      <div id="title">
-        欢迎来到
-        <div id="littleTitle">ahhTou的主页</div>
-      </div>
-    </div>
     <div id="Content">
       <content-plate></content-plate>
     </div>
@@ -17,11 +15,13 @@
 <script>
 import NavBar from "components/common/NavBar/navbar";
 import ContentPlate from "components/common/plate/main";
+import bodyTitle from "components/main/title";
 export default {
-  name: "WelCome",
+  name: "viewsWelCome",
   components: {
     NavBar,
-    ContentPlate
+    ContentPlate,
+    bodyTitle
   },
   mounted() {
     document.title = this.$route.meta.title;
@@ -31,25 +31,6 @@ export default {
 
 
 <style scoped>
-#title {
-  font-size: 10rem;
-  color: white;
-  letter-spacing: 100px;
-  /* text-indent: 10px; */
-  float: right;
-}
-#bodyTitle {
-  width: 1920px;
-  display: inline-block;
-  padding-bottom: 50px;
-}
-#littleTitle {
-  font-size: 3rem;
-  letter-spacing: 10px;
-  margin-top: 20px;
-  position: relative;
-  left: 530px;
-}
 #Content {
   display: flex;
   justify-content: center;

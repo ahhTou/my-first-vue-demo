@@ -1,0 +1,12 @@
+input[type="text"],
+input[type="password"] {
+  width: 330px;
+  height: 50px;
+}
+#button {
+  width: 330px;
+}
+
+.btnLine {
+  height: 50px;
+}

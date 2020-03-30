@@ -72,7 +72,7 @@ export default {
 #extraPlate {
   display: flex;
   width: 60rem;
-  /* height: 60rem; */
+  height: 60rem;
 }
 #mainPlate {
   display: flex;

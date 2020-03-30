@@ -1,8 +1,10 @@
 <template>
+<div id="body">
   <div id="navBody" :style="navBodyShow">
     <login-or-register></login-or-register>
-    <!-- <user-hatch></user-hatch> -->
   </div>
+</div>
+
 </template>
 <script>
 import UserHatch from "components/common/UserHatch/UserHatch";
@@ -48,11 +50,10 @@ export default {
 </script>
 
 <style scoped>
+@import "./lib/pc.css"  screen and (min-width:768px);
+@import "./lib/mobile.css"  screen and  (max-width:768px);
 #navBody {
-  position: fixed;
   z-index: 10;
-  top: 0;
-  left: 0;
   height: 100px;
   border-radius: 10px;
   margin: 10px;
@@ -60,8 +61,4 @@ export default {
   box-shadow: 2px 2px 5px rgba(170, 170, 170, 0);
   opacity: 1;
 }
-/* .navBodyShow {
-  background: rgba(189, 208, 207,1);
-
-} */
 </style>

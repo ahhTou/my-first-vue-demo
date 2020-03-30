@@ -18,7 +18,7 @@ export default {
 @import "../../../assets/css/base.css";
 @import "../../../assets/css/normalize.css";
 #up {
-  background-color: rgba(189, 208, 207,0.5);
+  background-color: rgba(189, 208, 207,0.8);
   height: 500px;
   overflow: hidden;
   transform: rotate(10deg) scale(1.5);
