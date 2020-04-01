@@ -1,5 +1,5 @@
 <template>
-<div id="body">
+<div id="navBarBody">
   <div id="navBody" :style="navBodyShow">
     <login-or-register></login-or-register>
   </div>
@@ -8,7 +8,7 @@
 </template>
 <script>
 import UserHatch from "components/common/UserHatch/UserHatch";
-import loginOrRegister from "components/common/button/login&register/mian";
+import loginOrRegister from "components/common/login&register/button/mian";
 export default {
   name: "navbar",
   data() {

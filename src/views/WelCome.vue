@@ -1,14 +1,19 @@
 <template>
-  <div>
-    <body-title>
-      <template v-slot:big>欢迎来到</template>
-      <template v-slot:little>ahhtou的主页</template>
-    </body-title>
-    <nav-bar></nav-bar>
-    <div id="Content">
-      <content-plate></content-plate>
+  <transition name="fade">
+    <div v-show="$store.state.routerViews.welcomeIsShow">
+      
+      <body-title>
+        <template v-slot:big>Hi~</template>
+        <template v-slot:little>ahhtou</template>
+      </body-title>
+
+      <nav-bar></nav-bar>
+
+      <div id="Content">
+        <content-plate></content-plate>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 
@@ -24,24 +29,20 @@ export default {
     bodyTitle
   },
   mounted() {
+    this.$store.state.routerViews.welcomeIsShow = true;
     document.title = this.$route.meta.title;
-  }
+  },
+  destroyed() {
+    this.$store.state.routerViews.welcomeIsShow = false;
+  },
 };
 </script>
 
 
 <style scoped>
+@import url('./lib/fade.css');
 #Content {
   display: flex;
   justify-content: center;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 1s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  transform: translateY(100px);
 }
 </style>

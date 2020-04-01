@@ -1,7 +1,7 @@
 <template>
   <div>
     <body-title>
-      <template v-slot:big>登录</template>
+      <template v-slot:big>Login</template>
     </body-title>
   </div>
 </template>
@@ -19,7 +19,6 @@ export default {
   }
 };
 </script>
-
 
 <style scoped>
 </style>

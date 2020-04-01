@@ -1,6 +1,6 @@
 <template>
   <div id="block" :style="style" v-float @mouseenter="f1" @mouseleave="f2" @click="goto">
-    <span id="title">
+    <span id="title1">
       <slot name="title"></slot>
     </span>
   </div>
@@ -58,7 +58,6 @@ export default {
         background: "url(" + this.data1.img + ")",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        fontSize: "4rem"
       };
     }
   }
@@ -67,20 +66,17 @@ export default {
 
 
 <style scoped>
-#title {
-  font-family: "Apple LiGothic Medium";
+@import url("./lib/pc.css") screen and (min-width: 768px);
+@import url("./lib/mobile.css") screen and (max-width: 768px);
+#title1 {
   text-indent: 10px;
+  font-size: 50px;
+  padding: 10px;
 }
 #block {
   position: relative;
   z-index: 1;
-  width: 30rem;
-  height: 30rem;
-  border-radius: 1rem;
-  box-shadow: 1rem 1rem 2rem #aaa;
   transition: transform 2s;
-  padding: 20px;
-  margin: 10px;
   cursor: pointer;
 }
 #block:hover {

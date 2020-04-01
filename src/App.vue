@@ -1,11 +1,13 @@
 <template>
   <div id="app">
-    <router-view></router-view>
-
-    <back-to-top/>
     <tow-color-bg />
+    <router-view></router-view>
+    <back-to-top />
     <div :class="bgb"></div>
-    <div id="bg" :style="{background:'url(' + this.$store.state.views.bg[this.$store.state.views.index] + ')', position:'fixed', zIndex:-11}"></div>
+    <div
+      id="bg"
+      :style="{background:'url(' + this.$store.state.views.bg[this.$store.state.views.index] + ')', position:'fixed', zIndex:-11}"
+    ></div>
   </div>
 </template>
 
@@ -16,26 +18,26 @@ export default {
   name: "App",
   data() {
     return {
-      bgb:{
+      bgb: {
         bgb1: true,
         bgb2: false
       },
-      imgIndex:0,
-    }
+      imgIndex: 0
+    };
   },
   components: {
     backToTop,
-    towColorBg,
+    towColorBg
   },
-  computed:{
-    isShow () {
-      return this.$store.state.views.show
-    },
+  computed: {
+    isShow() {
+      return this.$store.state.views.show;
+    }
   },
-  watch:{
-    isShow(val){
-      this.bgb.bgb2 = val
-    },
+  watch: {
+    isShow(val) {
+      this.bgb.bgb2 = val;
+    }
   }
 };
 </script>
@@ -43,12 +45,11 @@ export default {
 <style>
 @import "assets/css/base.css";
 @import "assets/css/normalize.css";
-body{
-  /* height: 200vw; */
+body {
   position: relative;
-  background: rgb(238,240,241);
+  background: rgb(238, 240, 241);
 }
-#bg{
+#bg {
   position: fixed;
   z-index: -11;
   top: -50px;
@@ -56,24 +57,23 @@ body{
   right: -50px;
   bottom: -50px;
   filter: blur(3px);
-  background-size:cover;  
+  background-size: cover;
   background-repeat: no-repeat;
 }
-.bgb1{
+.bgb1 {
   position: fixed;
   z-index: -8;
   top: -50px;
   left: -50px;
   right: -50px;
   bottom: -50px;
-  background-size:cover;  
+  background-size: cover;
   background-repeat: no-repeat;
-  background: rgb(238,240,241);
+  background: rgb(238, 240, 241);
   opacity: 1;
   transition: all 2s;
 }
-.bgb2{
+.bgb2 {
   opacity: 0;
 }
-
 </style>

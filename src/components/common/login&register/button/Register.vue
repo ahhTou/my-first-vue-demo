@@ -3,7 +3,7 @@
     <div id="btn" @mouseenter="show" @mouseleave="unshow" @click="goto" :class="isAnm">
       <span id="span1">+</span>
       <transition name="span-fade" mode="out-in">
-        <span id="span2" v-if="isSpanShow">注册</span>
+        <span id="span2" v-show="isSpanShow">注册</span>
       </transition>
     </div>
   </div>
@@ -31,10 +31,10 @@ export default {
       this.isSpanShow = false;
     },
     goto() {
-      this.$store.state.welcomeIsShow = false;
-
-      document.title = this.$route.matched[0].meta.title;
-      this.$router.push("/register");
+      this.$store.commit("changeViews");
+      setTimeout(() => {
+        this.$router.push("/register");
+        }, 250);
     }
   },
   watch: {
@@ -118,7 +118,6 @@ export default {
 }
 .inAnm {
   transform: rotate(0deg);
-  /* opacity: 0; */
   background: rgb(150, 150, 150);
   transform-origin: 50% 50%;
   animation: anmIn 1s ease;
@@ -130,7 +129,6 @@ export default {
   }
   100% {
     transform: rotate(-180deg);
-    /* opacity: 0; */
     background: rgb(177, 177, 177);
   }
 }
@@ -138,12 +136,9 @@ export default {
   0% {
     transform: rotate(-180deg);
     background: rgb(177, 177, 177);
-    /* opacity: 0; */
   }
   100% {
     transform: rotate(0deg);
-    /* background: rgb(150,150,150); */
-    /* opacity: 1; */
   }
 }
 </style>

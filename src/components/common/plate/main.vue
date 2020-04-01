@@ -7,28 +7,36 @@
         </template>
       </little-plate>
     </div>
+
     <div id="extraPlate">
-      
-      <little-plate :data1="sondata[2]">
-        <template v-slot:title>
-          <span>{{ sondataTitle[2] }}</span>
-        </template>
-      </little-plate>
-      <little-plate :data1="sondata[0]">
-        <template v-slot:title>
-          <span>{{ sondataTitle[0] }}</span>
-        </template>
-      </little-plate>
-      <little-plate :data1="sondata[0]">
-        <template v-slot:title>
-          <span>{{ sondataTitle[0] }}</span>
-        </template>
-      </little-plate>
-      <little-plate :data1="sondata[0]">
-        <template v-slot:title>
-          <span>{{ sondataTitle[0] }}</span>
-        </template>
-      </little-plate>
+      <div class="littlePlate">
+        <little-plate :data1="sondata[2]">
+          <template v-slot:title>
+            <span>{{ sondataTitle[2] }}</span>
+          </template>
+        </little-plate>
+      </div>
+      <div class="littlePlate">
+        <little-plate :data1="sondata[0]">
+          <template v-slot:title>
+            <span>{{ sondataTitle[0] }}</span>
+          </template>
+        </little-plate>
+      </div>
+            <div class="littlePlate">
+        <little-plate :data1="sondata[2]">
+          <template v-slot:title>
+            <span>{{ sondataTitle[2] }}</span>
+          </template>
+        </little-plate>
+      </div>
+      <div class="littlePlate">
+        <little-plate :data1="sondata[0]">
+          <template v-slot:title>
+            <span>{{ sondataTitle[0] }}</span>
+          </template>
+        </little-plate>
+      </div>
     </div>
   </div>
 </template>
@@ -63,6 +71,8 @@ export default {
 </script>
 
 <style scoped>
+@import url("./lib/main_pc.css") screen and (min-width: 768px);
+@import url("./lib/main_mobile.css") screen and (max-width: 768px);
 #body {
   display: flex;
   position: relative;
@@ -71,13 +81,13 @@ export default {
 }
 #extraPlate {
   display: flex;
-  width: 60rem;
-  height: 60rem;
+  flex-wrap: wrap;
 }
 #mainPlate {
   display: flex;
   flex-wrap: wrap;
-  width: 30rem;
-  /* height: 30rem; */
+}
+.littlePlate{
+  position: relative;
 }
 </style>

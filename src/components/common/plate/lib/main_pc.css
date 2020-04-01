@@ -1,0 +1,19 @@
+#body {
+  padding-bottom: 50px;
+}
+#mainPlate {
+  display: flex;
+  justify-content: center;
+  width: 500px;
+  height: 500px;
+  margin: 10px;
+}
+#extraPlate {
+  display: flex;
+}
+.littlePlate{
+  display: flex;
+  margin: 10px;
+  width: 180px;
+  height: 500px;
+}

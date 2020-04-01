@@ -1,15 +1,17 @@
-#title {
-  float: right;
-  font-size:100px;
-  padding-right: 2rem;
-}
 #bodyTitle {
-  width: 100vw;
-  padding-bottom: 50px;
+  width: 100vw;  
+  display: flex;
+  justify-content: flex-end;
 }
+#titleBox{
+  width: min-content;
+}
+#bigTitle {
+  font-size: 150px;
+}
+
 #littleTitle {
-  font-size: 1.5rem;
-  letter-spacing: 10px;
-  margin-top: 20px;
+  padding-left: 10px;
+  font-size: 30px;
   position: relative;
 }

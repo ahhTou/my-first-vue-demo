@@ -1,7 +1,9 @@
 <template>
   <div id="bodyTitle">
-    <div id="title">
-      <slot name="big"></slot>
+    <div id="titleBox">
+      <div id="bigTitle">
+        <slot name="big"></slot>
+      </div>
       <div id="littleTitle">
         <slot name="little"></slot>
       </div>
@@ -20,16 +22,8 @@ export default {
 <style scoped>
 @import url("./lib/pc.css") screen and (min-width: 768px);
 @import url("./lib/mobile.css") screen and (max-width: 768px);
-#title {
-
+#bodyTitle {
   font-family: "Microsoft YaHei";
   color: white;
-}
-#bodyTitle {
-  display: inline-block;
-
-}
-#littleTitle {
-  position: relative;
 }
 </style>

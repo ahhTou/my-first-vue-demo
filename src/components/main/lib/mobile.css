@@ -1,12 +1,13 @@
-#title {
-  font-size:50px;
+#bigTitle {
+  font-size:80px;
 }
 #bodyTitle {
   width: 100vw;
   display: flex;
-  text-align: center;
+  justify-content: center;
 }
 #littleTitle {
   font-size: 1.5rem;
   position: relative;
+  text-align: center;
 }

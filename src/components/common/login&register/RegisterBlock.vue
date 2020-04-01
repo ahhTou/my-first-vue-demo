@@ -1,5 +1,10 @@
 <template>
   <div id="body">
+    <this-bar>
+      <template v-slot:mainBar>
+        <div>注册</div>
+      </template>
+    </this-bar>
     <form action method="post">
       <div>
         <div class="tips">{{ tips[0]}}</div>
@@ -67,8 +72,12 @@
 <script>
 import { checkUsername, checkEmail, registerAccount } from "network/accountMsg";
 import md5 from "js-md5";
+import thisBar from "./thisBar/mian";
 export default {
   name: "InputBlock",
+  components: {
+    thisBar
+  },
   data() {
     return {
       username: "",
@@ -208,8 +217,8 @@ export default {
   padding: 10px;
 } */
 @import "../../../assets/css/normalize.css";
-@import "./lib/pc.css"  screen and (min-width:768px);
-@import "./lib/mobile.css"  screen and  (max-width:768px);
+@import "./lib/pc.css" screen and (min-width: 768px);
+@import "./lib/mobile.css" screen and (max-width: 768px);
 input {
   border: 0;
   outline: none;
@@ -217,6 +226,7 @@ input {
 input[type="button"] {
   background: rgba(0, 136, 255, 1);
   color: white;
+  cursor: pointer;
 }
 input[type="text"],
 input[type="password"] {
