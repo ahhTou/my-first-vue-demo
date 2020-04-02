@@ -1,8 +1,8 @@
 <template>
-  <div id="body2">
+  <div id="registerBtnBody">
     <div id="btn" @mouseenter="show" @mouseleave="unshow" @click="goto" :class="isAnm">
       <span id="span1">+</span>
-      <transition name="span-fade" mode="out-in">
+      <transition name="span-fade">
         <span id="span2" v-show="isSpanShow">注册</span>
       </transition>
     </div>
@@ -33,8 +33,8 @@ export default {
     goto() {
       this.$store.commit("changeViews");
       setTimeout(() => {
-        this.$router.push("/register");
-        }, 250);
+        this.$router.push("/account/register");
+        }, 150);
     }
   },
   watch: {
@@ -53,11 +53,10 @@ export default {
 
 
 <style scoped>
-#body2 {
+#registerBtnBody {
   margin: 0px 30px 0px 10px;
   float: left;
   font-size: 17px;
-  /* width: 170px; */
   height: 100px;
   display: flex;
   align-items: center;

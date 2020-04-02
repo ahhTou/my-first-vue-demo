@@ -1,9 +1,9 @@
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(20px);
 }

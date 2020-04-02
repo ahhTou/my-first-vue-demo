@@ -17,6 +17,7 @@ router.get('/welcomePlateMsg', function(req, res){
 router.post('/accountCheckUsername', function(req, res){
   getAccountMsg.find( {id:req.body.username.trim() },function (err, result){
     if(err) {
+      console.log('err')
       return res.status(500).send('Server Err')
     }
     else{

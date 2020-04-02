@@ -10,8 +10,10 @@ export default {
   name: "btnLogin",
     methods: {
     goto() {
-      this.$store.state.welcomeIsShow = false;
-      this.$router.push("/login");
+      this.$store.state.routerViews.welcomeIsShow = false;
+      setTimeout(()=>{
+        this.$router.push("/account/login");
+      },150)
     }
   }
 }; 

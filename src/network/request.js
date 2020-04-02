@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 export function request(config){
+  var path=window.document.location.origin;
   const instance = axios.create({
-    // baseURL:'http://127.0.0.1:3000/',
-    // timeout:500
+    baseURL: path,
   })
   return instance(config);
 }

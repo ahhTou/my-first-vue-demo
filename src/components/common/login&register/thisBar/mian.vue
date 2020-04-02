@@ -1,10 +1,8 @@
 <template>
   <div id="thisBarBody">
     <button class="btn" id="btn1" @click="goHome">﹤</button>
-    <div id="mainBar">
-      <slot name="mainBar"></slot>
-    </div>
-    <button class="btn" id="btn2" @click="goWhere">Login</button>
+    <div id="mainBar">{{ $route.meta.title }}</div>
+    <button class="btn" id="btn2" @click="goWhere">{{ $route.name }}</button>
   </div>
 </template>
 
@@ -14,20 +12,22 @@ export default {
   name: "thisBar",
   methods: {
     goHome() {
-      this.$store.commit('changeViews')
+      this.$store.commit("changeViews");
       setTimeout(() => {
         this.$router.push("/");
-      }, 250);
+      }, 200);
     },
     goWhere() {
       let name = this.$route.name;
-      if (name === "login") {
-        this.$router.push("/register");
-      } else {
-        setTimeout(() => {
-          this.$router.push("/login");
-        }, 400);
-      }
+      this.$store.commit("changeViews");
+      this.$store.state.routerViews.loginOrRegisterIsShow = true;
+      setTimeout(() => {
+        if (name === "login") {
+          this.$router.push("/account/register");
+        } else {
+          this.$router.push("/account/login");
+        }
+      }, 200);
     }
   }
 };

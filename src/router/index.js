@@ -5,13 +5,31 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/register',
-    name: 'register',
-    component: () => import("views/Register"),
-    meta: {
-      title: '注册'
-    },
+    path: '/account',
+    name: 'account',
+    component:() => import("views/loginOrRegister"),
+    redirect:'/404',
+    children: [
+      {
+        path: '/account/register',
+        name: 'register',
+        component: () => import("components/main/account/Register.vue"),
+        meta: {
+          title: '注册'
+        },
+      },
+      {
+        path: '/account/login',
+        name: 'login',
+        component: () => import("components/main/account/Login"),
+        meta: {
+          title: '登录'
+        },
+      }
+
+    ]
   },
+
   {
     path: '/',
     name: 'Home',
@@ -21,13 +39,14 @@ const routes = [
     },
   },
   {
-    path:'/login',
-    name: 'login',
-    component: () => import("views/Login"),
-    meta: {
-      title: '登录'
-    },
+    path:'/404',
+    name:'err404',
+    component:() => import("views/other/404"),
+    meta:{
+      title:'404'
+    }
   }
+
 ]
 
 

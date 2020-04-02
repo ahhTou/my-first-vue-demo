@@ -1,11 +1,5 @@
 <template>
-  <div id="body">
-    <this-bar>
-      <template v-slot:mainBar>
-        <div>注册</div>
-      </template>
-    </this-bar>
-    <form action method="post">
+    <form method="post">
       <div>
         <div class="tips">{{ tips[0]}}</div>
         <input
@@ -65,19 +59,14 @@
         >重置</button>
       </div>
     </form>
-  </div>
 </template>
 
 
 <script>
 import { checkUsername, checkEmail, registerAccount } from "network/accountMsg";
 import md5 from "js-md5";
-import thisBar from "./thisBar/mian";
 export default {
   name: "InputBlock",
-  components: {
-    thisBar
-  },
   data() {
     return {
       username: "",
@@ -212,27 +201,28 @@ export default {
 
 
 <style scoped>
-/* #body {
-  margin: 10px;
-  padding: 10px;
-} */
-@import "../../../assets/css/normalize.css";
+@import url('./lib/common.css');
 @import "./lib/pc.css" screen and (min-width: 768px);
 @import "./lib/mobile.css" screen and (max-width: 768px);
-input {
-  border: 0;
-  outline: none;
+#btnClear {
+  margin-left: 10px;
+  transition: all 0.5s;
 }
-input[type="button"] {
-  background: rgba(0, 136, 255, 1);
-  color: white;
-  cursor: pointer;
+#btnClear:active {
+  transform: scale(0.8, 0.8);
 }
-input[type="text"],
-input[type="password"] {
-  position: relative;
-  margin: 10px;
-  text-indent: 10px;
+
+
+#btnClear:hover {
+  background: rgb(214, 224, 224);
+}
+
+input:focus {
+  box-shadow: 1px 1px 2px #aaa;
+}
+.tips {
+  margin: 0px 10px 0px 10px;
+  color: red;
 }
 #button {
   position: relative;
@@ -242,58 +232,11 @@ input[type="password"] {
   flex-wrap: nowrap;
   justify-content: space-between;
 }
-.btnLine {
-  height: 50px;
-  flex: 1;
-  transition: all 0.5s;
-}
-
-#btnClear {
-  margin-left: 10px;
-  transition: all 0.5s;
-}
-#btnClear:active {
-  transform: scale(0.8, 0.8);
-}
 #btnSubmit {
   position: relative;
   margin-right: 10px;
 }
-
-#btnClear:hover {
-  background: rgb(214, 224, 224);
-}
 #btnSubmit:hover {
   background: rgba(0, 136, 255, 0.7);
-}
-input:focus {
-  box-shadow: 1px 1px 2px #aaa;
-}
-.tips {
-  margin: 0px 10px 0px 10px;
-  color: red;
-}
-.isRight {
-  border: 1px solid rgb(114, 151, 182);
-}
-.isErr {
-  border: 1px solid rgb(218, 54, 54);
-}
-.isAni {
-  animation: err 0.3s;
-}
-@keyframes err {
-  0% {
-    transform: translateX(0px);
-  }
-  33% {
-    transform: translateX(10px);
-  }
-  66% {
-    transform: translateX(-10px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
 }
 </style>

@@ -5,8 +5,11 @@ import mutations from './mutations'
 Vue.use(Vuex)
 const state = {
   routerViews: {
+    loginOrRegisterIsShow:false,
+    registerBlockIsShow:false,
+    lgoinBlockIsShow:false,
+    registerIsShow:false,
     welcomeIsShow: false,
-    registerIsShow: false
   },
   views: {
     show: false,

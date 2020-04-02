@@ -1,12 +1,10 @@
 <template>
-  <transition name="fade">
-    <div v-show="$store.state.routerViews.welcomeIsShow">
-      
+  <transition name="fade" mode="out-in">
+    <div v-if="$store.state.routerViews.welcomeIsShow">
       <body-title>
         <template v-slot:big>Hi~</template>
         <template v-slot:little>ahhtou</template>
       </body-title>
-
       <nav-bar></nav-bar>
 
       <div id="Content">
@@ -24,9 +22,9 @@ import bodyTitle from "components/main/title";
 export default {
   name: "viewsWelCome",
   components: {
-    NavBar,
     ContentPlate,
-    bodyTitle
+    bodyTitle,
+    NavBar
   },
   mounted() {
     this.$store.state.routerViews.welcomeIsShow = true;
@@ -34,13 +32,13 @@ export default {
   },
   destroyed() {
     this.$store.state.routerViews.welcomeIsShow = false;
-  },
+  }
 };
 </script>
 
 
 <style scoped>
-@import url('./lib/fade.css');
+@import url("./lib/fade.css");
 #Content {
   display: flex;
   justify-content: center;

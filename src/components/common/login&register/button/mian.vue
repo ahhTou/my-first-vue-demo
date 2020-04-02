@@ -1,13 +1,10 @@
 <template>
-  <div>
-    <div id="btnline">
+    <div id="lr_btnline">
       <div @mouseleave="f1" @mouseenter="f2">
-        <btn-login />
+        <btn-login/>
       </div>
-
       <btn-register :anm='itAnm'/>
     </div>
-  </div>
 </template>
 
 
@@ -39,7 +36,7 @@ export default {
 
 
 <style scoped>
-#btnline {
+#lr_btnline {
   display: flex;
   width: auto;
   align-items: center;

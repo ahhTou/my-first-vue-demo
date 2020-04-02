@@ -1,0 +1,44 @@
+@import "~assets/css/normalize.css";
+input {
+  border: 0;
+  outline: none;
+}
+input[type="button"] {
+  background: rgba(0, 136, 255, 1);
+  color: white;
+  cursor: pointer;
+}
+input[type="text"],
+input[type="password"] {
+  position: relative;
+  margin: 10px;
+  text-indent: 10px;
+}
+.btnLine {
+  height: 50px;
+  flex: 1;
+  transition: all 0.5s;
+}
+.isRight {
+  border: 1px solid rgb(114, 151, 182);
+}
+.isErr {
+  border: 1px solid rgb(218, 54, 54);
+}
+.isAni {
+  animation: err 0.3s;
+}
+@keyframes err {
+  0% {
+    transform: translateX(0px);
+  }
+  33% {
+    transform: translateX(10px);
+  }
+  66% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}

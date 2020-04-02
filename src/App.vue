@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <tow-color-bg />
+    <tow-color-bg/>
     <router-view></router-view>
-    <back-to-top />
+    <back-to-top/>
     <div :class="bgb"></div>
     <div
       id="bg"
