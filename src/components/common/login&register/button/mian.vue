@@ -1,5 +1,5 @@
 <template>
-    <div id="lr_btnline">
+    <div id="lr_btnline" v-if="!$store.state.login">
       <div @mouseleave="f1" @mouseenter="f2">
         <btn-login/>
       </div>

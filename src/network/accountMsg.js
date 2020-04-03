@@ -24,3 +24,11 @@ export function registerAccount(account) {
     data:{ account }
   })
 }
+export function loginAccount(account) {
+  return request({
+    url:'api/loginAccount',
+    method:'post',
+    query:{ account },
+    data:{ account },
+  })
+}

@@ -2,7 +2,7 @@
   <div id="thisBarBody">
     <button class="btn" id="btn1" @click="goHome">﹤</button>
     <div id="mainBar">{{ $route.meta.title }}</div>
-    <button class="btn" id="btn2" @click="goWhere">{{ $route.name }}</button>
+    <button class="btn" id="btn2" @click="goWhere">{{ btnName }}</button>
   </div>
 </template>
 
@@ -10,7 +10,32 @@
 <script>
 export default {
   name: "thisBar",
+  data() {
+    return {
+      btnName:''
+    }
+  },
+  computed: {
+    btnNameWatch() {
+      this.changeName();
+      return this.$route.name
+    }
+  },
+
+  watch:{
+     btnNameWatch() {
+      this.changeName();
+    }
+  },
   methods: {
+    changeName() {
+      if(this.$route.name === 'login'){
+        this.btnName = 'register'
+      }
+      else{
+        this.btnName = 'login'
+      }
+    },
     goHome() {
       this.$store.commit("changeViews");
       setTimeout(() => {

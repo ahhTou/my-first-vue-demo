@@ -1,5 +1,5 @@
 <template>
-  <div id="registerBtnBody">
+  <div id="registerBtnBody" >
     <div id="btn" @mouseenter="show" @mouseleave="unshow" @click="goto" :class="isAnm">
       <span id="span1">+</span>
       <transition name="span-fade">

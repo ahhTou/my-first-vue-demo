@@ -9,5 +9,17 @@ export default {
     for (let a in state.routerViews) {
       state.routerViews[a] = false;
     }
+  },
+  addLoginToken(state, data){
+    state.loginToken = data
+  },
+  getuserBaseMsg(state, data){
+    state.userBaseMsg = {
+      id:data.id,
+      nickname:data.nickname
+    }
+  },
+  setLogin(state, data){
+    state.login = data
   }
 }

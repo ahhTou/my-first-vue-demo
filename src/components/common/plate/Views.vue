@@ -42,14 +42,20 @@ export default {
   },
   methods: {
     f1() {
-      this.$store.state.views.index = this.data1.index;
-      this.$store.state.views.show = true;
+      try{
+        this.$store.state.views.index = this.data1.index;
+        this.$store.state.views.show = true;
+      }catch(err){
+      }
     },
     f2() {
       this.$store.state.views.show = false;
     },
-    goto(){
-      window.open('https://www.bilibili.com/anime/?spm_id_from=333.851.b_7072696d6172794368616e6e656c4d656e75.7','_self')
+    goto() {
+      window.open(
+        "https://www.bilibili.com/anime/?spm_id_from=333.851.b_7072696d6172794368616e6e656c4d656e75.7",
+        "_self"
+      );
     }
   },
   watch: {
@@ -57,7 +63,7 @@ export default {
       this.style = {
         background: "url(" + this.data1.img + ")",
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "center"
       };
     }
   }

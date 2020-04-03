@@ -3,7 +3,7 @@
     <div v-if="$store.state.routerViews.welcomeIsShow">
       <body-title>
         <template v-slot:big>Hi~</template>
-        <template v-slot:little>ahhtou</template>
+        <template v-slot:little>{{ useraame }}</template>
       </body-title>
       <nav-bar></nav-bar>
 
@@ -21,10 +21,29 @@ import ContentPlate from "components/common/plate/main";
 import bodyTitle from "components/main/title";
 export default {
   name: "viewsWelCome",
+  data() {
+    return {
+      useraame:'请登录',
+    }
+  },
   components: {
     ContentPlate,
     bodyTitle,
-    NavBar
+    NavBar,
+  },
+  computed: {
+    userBaseMsg() {
+      this.useraame = this.$store.state.userBaseMsg.nickname
+      if(this.useraame==null || this.username==''){
+        this.useraame = '请登录'
+      }
+      return this.$store.state.userBaseMsg
+    }
+  },
+  watch: {
+    userBaseMsg(val){
+      this.useraame = val.nickname
+    }
   },
   mounted() {
     this.$store.state.routerViews.welcomeIsShow = true;
@@ -32,7 +51,10 @@ export default {
   },
   destroyed() {
     this.$store.state.routerViews.welcomeIsShow = false;
-  }
+  },
+  created() {
+  
+  },
 };
 </script>
 

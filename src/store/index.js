@@ -4,6 +4,11 @@ import Vuex from 'vuex'
 import mutations from './mutations'
 Vue.use(Vuex)
 const state = {
+  login:false,
+  loginToken:'',
+  userBaseMsg:{
+
+  },
   routerViews: {
     loginOrRegisterIsShow:false,
     registerBlockIsShow:false,

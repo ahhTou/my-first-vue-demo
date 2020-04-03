@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <tow-color-bg/>
+    <button @click="fff" id="fff" v-if="!isLogin">退出</button>
+    <tow-color-bg />
     <router-view></router-view>
-    <back-to-top/>
+    <back-to-top />
     <div :class="bgb"></div>
     <div
       id="bg"
@@ -18,12 +19,20 @@ export default {
   name: "App",
   data() {
     return {
+      isLogin: false,
       bgb: {
         bgb1: true,
         bgb2: false
       },
       imgIndex: 0
     };
+  },
+  methods: {
+    fff() {
+      window.localStorage.setItem("token", "");
+      window.localStorage.setItem("login", false);
+      window.localStorage.setItem("rememberMe", false);
+    }
   },
   components: {
     backToTop,
@@ -33,6 +42,16 @@ export default {
     isShow() {
       return this.$store.state.views.show;
     }
+  },
+  mounted() {
+    if( window.localStorage.getItem("rememberMe")==='true'){
+      this.$store.commit("addLoginToken", window.localStorage.getItem("token"))
+      this.$store.commit("setLogin", window.localStorage.getItem("login"));
+    }
+  },
+  destroyed() {
+    window.localStorage.setItem("token", "");
+    window.localStorage.setItem("login", false);
   },
   watch: {
     isShow(val) {
@@ -45,6 +64,10 @@ export default {
 <style>
 @import "assets/css/base.css";
 @import "assets/css/normalize.css";
+#fff {
+  position: relative;
+  z-index: 100000;
+}
 body {
   position: relative;
   background: rgb(238, 240, 241);

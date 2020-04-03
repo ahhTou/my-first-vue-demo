@@ -18,6 +18,12 @@ var SchemaAccount = new Schema({
     required:true,
     type: String,
   },
+  nickname: {
+    type: String,
+  },
+  token:{
+    type: String,
+  }
 })
 
 module.exports = mongoose.model('accountMsg', SchemaAccount, 'accountMsg')
