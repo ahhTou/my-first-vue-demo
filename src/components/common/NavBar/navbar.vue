@@ -7,7 +7,6 @@
 
 </template>
 <script>
-import UserHatch from "components/common/UserHatch/UserHatch";
 import loginOrRegister from "components/common/login&register/button/mian";
 export default {
   name: "navbar",
@@ -22,7 +21,6 @@ export default {
   },
   components: {
     loginOrRegister,
-    UserHatch
   },
   mounted() {
     const that = this;

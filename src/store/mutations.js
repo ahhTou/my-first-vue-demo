@@ -21,5 +21,12 @@ export default {
   },
   setLogin(state, data){
     state.login = data
+  },
+  closeLogin(state){
+    window.localStorage.setItem("token", "");
+    window.localStorage.setItem("login", false);
+    window.localStorage.setItem("rememberMe", false);
+    state.loginToken=''
+    state.login = false
   }
 }

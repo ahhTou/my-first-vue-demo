@@ -19,9 +19,9 @@
           :style="panelIn"
         >
           <p id="username">{{ username }}</p>
-          <div v-for="(item, index) in hatchManager" id="listBox" :key="index">
-            <a :href="item.id>0?item.url:null">
-              <div :class="item.id > 0 ? 'panelList' : 'panelListOut'" :key="index">
+          <div v-for="(item, index) in hatchManager" id="listBox" :key="index" @click="exitLogin(item.id)">
+            <a :href="item.id>0?item.url:null" >
+              <div :class="item.id > 0 ? 'panelList' : 'panelListOut'" >
                 <span class="fontLogo">{{ item.logoFont }}</span>
                 <span>{{ item.name }}</span>
               </div>
@@ -91,19 +91,27 @@ export default {
     };
   },
   methods: {
+    exitLogin(id, event) {
+      console.log(id)
+      if(id===-1){
+      this.$store.commit('closeLogin');
+      this.$router.go(0);
+      }
+    },
     //鼠标监听
     panelBiger: function() {
       if (!this.maxBoxOpen) {
-        (this.panelShow = true), (this.hatchBoxAfter.hatchBoxAfterBiger = true);
-        this.hatchBox.hatchBoxBiger = true;
+        this.panelShow = true
+        this.hatchBoxAfter.hatchBoxAfterBiger = true
+        this.hatchBox.hatchBoxBiger = true
       }
     },
 
     panelLitter: function() {
       if (!this.maxBoxOpen) {
-        this.panelShow = false;
-        this.hatchBoxAfter.hatchBoxAfterBiger = false;
-        this.hatchBox.hatchBoxBiger = false;
+        this.panelShow = false
+        this.hatchBoxAfter.hatchBoxAfterBiger = false
+        this.hatchBox.hatchBoxBiger = false
       }
     },
     //点击打开面板
@@ -213,13 +221,14 @@ body {
 /* 最外部盒子 */
 .hatchBoxMax {
   position: fixed;
-  right: 0px;
+  left: 0px;
   top: 0px;
   width: 300px;
   height: 500px;
   display: flex;
   justify-content: center;
   margin: 10px;
+  z-index: 10000000;
 }
 .hatchBoxMaxOpen {
   width: 1000px;

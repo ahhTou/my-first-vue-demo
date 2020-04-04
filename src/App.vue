@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <button @click="fff" id="fff" v-if="!isLogin">退出</button>
+    <!-- <button @click="fff" id="fff" v-if="!isLogin">退出</button> -->
+
+    <div v-if="$store.state.login">
+    <user-hatch></user-hatch>
+    </div>
+
     <tow-color-bg />
     <router-view></router-view>
     <back-to-top />
@@ -15,6 +20,7 @@
 <script>
 import towColorBg from "components/common/twoColorBackGround/bg";
 import backToTop from "components/common/backToTop/mian";
+import UserHatch from "components/common/UserHatch/UserHatch";
 export default {
   name: "App",
   data() {
@@ -36,7 +42,8 @@ export default {
   },
   components: {
     backToTop,
-    towColorBg
+    towColorBg,
+    UserHatch
   },
   computed: {
     isShow() {
@@ -44,14 +51,16 @@ export default {
     }
   },
   mounted() {
-    if( window.localStorage.getItem("rememberMe")==='true'){
-      this.$store.commit("addLoginToken", window.localStorage.getItem("token"))
+    if (window.localStorage.getItem("rememberMe") === "true") {
+      this.$store.commit("addLoginToken", window.localStorage.getItem("token"));
       this.$store.commit("setLogin", window.localStorage.getItem("login"));
     }
   },
   destroyed() {
-    window.localStorage.setItem("token", "");
-    window.localStorage.setItem("login", false);
+    if (window.localStorage.getItem("rememberMe") === "false") {
+      window.localStorage.setItem("login", false);
+      window.localStorage.setItem("token", "");
+    }
   },
   watch: {
     isShow(val) {

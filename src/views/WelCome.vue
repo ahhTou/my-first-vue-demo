@@ -3,7 +3,7 @@
     <div v-if="$store.state.routerViews.welcomeIsShow">
       <body-title>
         <template v-slot:big>Hi~</template>
-        <template v-slot:little>{{ useraame }}</template>
+        <template v-slot:little>{{ username }}</template>
       </body-title>
       <nav-bar></nav-bar>
 
@@ -19,30 +19,32 @@
 import NavBar from "components/common/NavBar/navbar";
 import ContentPlate from "components/common/plate/main";
 import bodyTitle from "components/main/title";
+import { getAccountBaseMsg } from "network/accountMsg";
 export default {
   name: "viewsWelCome",
   data() {
     return {
-      useraame:'请登录',
-    }
+      username: "请登录"
+    };
   },
   components: {
     ContentPlate,
     bodyTitle,
-    NavBar,
+    NavBar
   },
   computed: {
     userBaseMsg() {
-      this.useraame = this.$store.state.userBaseMsg.nickname
-      if(this.useraame==null || this.username==''){
-        this.useraame = '请登录'
+      this.username = this.$store.state.userBaseMsg.nickname;
+      if (this.username == null || this.username == "") {
+        this.username = "请登录";
       }
-      return this.$store.state.userBaseMsg
+      return this.$store.state.userBaseMsg.nickname;
     }
   },
   watch: {
-    userBaseMsg(val){
-      this.useraame = val.nickname
+    userBaseMsg(val) {
+      console.log("改变了：", val);
+      this.username = val;
     }
   },
   mounted() {
@@ -53,8 +55,21 @@ export default {
     this.$store.state.routerViews.welcomeIsShow = false;
   },
   created() {
-  
-  },
+    if (window.localStorage.getItem("login") === "true") {
+      const token = window.localStorage.getItem("token");
+      getAccountBaseMsg().then(result => {
+        if (result.data !== "err") {
+          this.$store.commit("getuserBaseMsg", result.data);
+          console.log(result);
+          console.log(window.localStorage.getItem("login"));
+        }
+        else{
+          this.$store.commit('closeLogin');
+        }
+      });
+    }
+    console.log(this.$store.state.login)
+  }
 };
 </script>
 

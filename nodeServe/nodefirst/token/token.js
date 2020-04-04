@@ -1,16 +1,19 @@
 const jwt = require('jsonwebtoken');
 var getAccountMsg = require('../mongoose/accountMsg');
 module.exports = {
-  checkToken(req, secret){
-    jwt.verify(req.headers.token ,secret,(error,decoded)=>{
-      if(error){
-          console.log(error)
-          return error
-      }
-      console.log("校验",decoded)
-  })
+  checkToken(req, secret) {
+    let result = 'err'
+    try {
+      jwt.verify(req.headers.token, secret, (error, decoded) => {
+        if (error) result = 'err'
+        else result = decoded.name.id
+      })
+    } catch (error) {
+      return result
+    }
+    return result
   },
-   createdToken(data, secret) {
+  createdToken(data, secret) {
     const token = jwt.sign(
       {
         name: data //需要放到token的参数
@@ -23,9 +26,9 @@ module.exports = {
     return token
   },
   userTokenUpdata(search, updata) {
-    getAccountMsg.updateOne({id:search.id,password:search.password}, {token: updata.token}, function (err, result) {
-    // if (err) console.log('更新失败')
-    // else console.log('更新成功')
-  })
+    getAccountMsg.updateOne({ id: search.id, password: search.password }, { token: updata.token }, function (err, result) {
+      // if (err) console.log('更新失败')
+      // else console.log('更新成功')
+    })
   }
 }

@@ -32,3 +32,11 @@ export function loginAccount(account) {
     data:{ account },
   })
 }
+export function getAccountBaseMsg(token){
+  return request({
+    url:'api/getAccountBaseMsg',
+    method:'post',
+    query:{ token },
+    data:{ token },
+  })
+}

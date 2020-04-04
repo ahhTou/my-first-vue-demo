@@ -7,7 +7,8 @@ const state = {
   login:false,
   loginToken:'',
   userBaseMsg:{
-
+    id:'未登录',
+    nickname:'未登录'
   },
   routerViews: {
     loginOrRegisterIsShow:false,

@@ -3,10 +3,10 @@ var router = express.Router();
 
 var getPlateMsg = require('./mongoose/WelcomePlateMsg');
 var getAccountMsg = require('./mongoose/accountMsg');
+var getAccountBaseMsg = require('./mongoose/accountBaseMsg');
 var Token = require('./token/token')
 
 router.get('/welcomePlateMsg', function (req, res) {
-  Token.checkToken(req, 'ahhtou')
   getPlateMsg.find(function (err, result) {
     if (err) {
       return res.status(500).send('Server Err')
@@ -112,8 +112,18 @@ router.post('/loginAccount', function (req, res) {
       }
     })
 })
-router.post('/checkLogin', function(req, res){
-
+router.post('/getAccountBaseMsg', function(req, res){
+  const checkToken = Token.checkToken(req, 'ahhtou')
+  //正确返回id，错误返回err
+  if(checkToken!=='err'){
+    getAccountBaseMsg.findOne({id:checkToken},function(err, result){
+      if (err) {
+        return res.status(500).send('Server Err')
+      }else{
+        res.send(result)
+      }
+    })
+  }
+  else res.send('err')
 })
-
 module.exports = router;

@@ -57,8 +57,8 @@ export default {
           this.$store.commit("getuserBaseMsg", res.data);
           this.$store.commit("setLogin",true)
           console.log('vuex:',this.$store.state.login)
-          // console.log(;
           console.log(window.localStorage);
+          this.$router.go(-1);
         } else {
           clearTimeout(timer);
           this.errOrNot.isRight = false;
