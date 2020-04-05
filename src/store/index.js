@@ -2,13 +2,16 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import mutations from './mutations'
+import getters from './getters'
+
 Vue.use(Vuex)
+
 const state = {
   login:false,
-  loginToken:'',
+  loginToken: null,
   userBaseMsg:{
     id:'未登录',
-    nickname:'未登录'
+    nickname:'未登录',
   },
   routerViews: {
     loginOrRegisterIsShow:false,
@@ -28,6 +31,7 @@ const state = {
 export default new Vuex.Store({
   state,
   mutations,
+  getters,
   actions: {
   },
   modules: {

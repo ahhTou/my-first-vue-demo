@@ -13,6 +13,11 @@ var SchemaAccount = new Schema({
   nickname: {
     type: String,
   },
+  profilePhoto: {
+    type: String,
+    default:'http://127.0.0.1:3000/public/img/defaultProfilePhoto.jpg'
+  }
+
 })
 
 module.exports = mongoose.model('accountBaseMsg', SchemaAccount, 'accountBaseMsg')

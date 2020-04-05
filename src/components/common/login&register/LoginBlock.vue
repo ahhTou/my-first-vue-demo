@@ -24,40 +24,28 @@ export default {
   name: "",
   data() {
     return {
-      accountID: "",
+      tips: [],
       password: "",
+      accountID: "",
       rememberMe: false,
-      errOrNot: {
-        isRight: true,
-        isErr: false,
-        isAni: false
-      },
-      tips: []
+      errOrNot: { isRight: true, isErr: false, isAni: false }
     };
   },
   methods: {
     toLogin() {
       let timer;
-      const thisPassword = md5(this.password);
-      const thisaccountID = this.accountID;
-      const account = {
-        userID: thisaccountID,
-        password: thisPassword
-      };
+      const password = md5(this.password);
+      const userID = this.accountID;
+      const account = { userID, password };
       loginAccount(account).then(res => {
-        // console.log(res.data);
         if (res.data.code === "1") {
-          console.log("登录成功");
           if (this.rememberMe) {
             window.localStorage.setItem("token", res.data.token);
             window.localStorage.setItem("login", true);
             window.localStorage.setItem("rememberMe", true);
           }
-          this.$store.commit("addLoginToken", res.data.token);
-          this.$store.commit("getuserBaseMsg", res.data);
-          this.$store.commit("setLogin",true)
-          console.log('vuex:',this.$store.state.login)
-          console.log(window.localStorage);
+          this.$store.commit("setUserBaseMsg", res.data);
+          this.$store.commit("setLogin", res.data.token);
           this.$router.go(-1);
         } else {
           clearTimeout(timer);
@@ -67,7 +55,6 @@ export default {
           timer = setTimeout(() => {
             this.errOrNot.isAni = false;
           }, 300);
-          console.log("登录失败");
         }
       });
     }

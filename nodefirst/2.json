@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5e7c7f37b9124f62c87663f8"},"title":"占位","img":"http://127.0.0.1:3000/public/img/1.jpg","bgUrl":"https://www.bilibili.com/anime/?spm_id_from=333.851.b_7072696d6172794368616e6e656c4d656e75.7","size":{"$numberInt":"30"},"index":{"$numberInt":"1"}}
+{"_id":{"$oid":"5e7cb49ac409b46c10c3b41d"},"title":"番剧","img":"http://127.0.0.1:3000/public/img/2.jpg","bgUrl":"http://127.0.0.1:3000/public/img/2.jpg","size":{"$numberInt":"30"},"index":{"$numberInt":"2"}}
+{"_id":{"$oid":"5e7cb4c5c409b46c10c3b41e"},"title":"占位","img":"http://127.0.0.1:3000/public/img/3.jpg","bgUrl":"http://127.0.0.1:3000/public/img/3.jpg","size":{"$numberInt":"30"},"index":{"$numberInt":"3"}}

@@ -108,7 +108,7 @@ export default {
         };
         registerAccount(msg).then(res => {
           if (res.data == "1") {
-            alert("注册成功");
+            this.$router.push('account/login')
           }
         });
       } else {

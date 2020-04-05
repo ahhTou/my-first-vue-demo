@@ -1,19 +1,11 @@
 <template>
   <div id="app">
-    <!-- <button @click="fff" id="fff" v-if="!isLogin">退出</button> -->
-
-    <div v-if="$store.state.login">
-    <user-hatch></user-hatch>
-    </div>
-
-    <tow-color-bg />
-    <router-view></router-view>
+    <router-view />
     <back-to-top />
-    <div :class="bgb"></div>
-    <div
-      id="bg"
-      :style="{background:'url(' + this.$store.state.views.bg[this.$store.state.views.index] + ')', position:'fixed', zIndex:-11}"
-    ></div>
+    <tow-color-bg />
+    <div :class="bgMask" />
+    <user-hatch v-show="$store.state.login" />
+    <div id="theTouchBg" :style="theTouchBgStyle" />
   </div>
 </template>
 
@@ -21,50 +13,58 @@
 import towColorBg from "components/common/twoColorBackGround/bg";
 import backToTop from "components/common/backToTop/mian";
 import UserHatch from "components/common/UserHatch/UserHatch";
+import { getAccountBaseMsg } from "network/accountMsg";
 export default {
   name: "App",
-  data() {
-    return {
-      isLogin: false,
-      bgb: {
-        bgb1: true,
-        bgb2: false
-      },
-      imgIndex: 0
-    };
-  },
-  methods: {
-    fff() {
-      window.localStorage.setItem("token", "");
-      window.localStorage.setItem("login", false);
-      window.localStorage.setItem("rememberMe", false);
-    }
-  },
   components: {
     backToTop,
     towColorBg,
     UserHatch
   },
+  data() {
+    return {
+      theTouchBgStyle: { position: "fixed", zIndex: -11 },
+      bgMask: { bgb1: true, bgb2: false },
+      index: ""
+    };
+  },
+  mounted() {
+    const key = window.localStorage.getItem("rememberMe");
+    const token = window.localStorage.getItem("token");
+    const login = window.localStorage.getItem("login");
+    if (key === "true") this.$store.commit("setLogin", { login, token });
+  },
+  destroyed() {
+    const key = window.localStorage.getItem("rememberMe");
+    if (key === "false") this.$store.commit("closeLogin");
+  },
   computed: {
     isShow() {
       return this.$store.state.views.show;
-    }
-  },
-  mounted() {
-    if (window.localStorage.getItem("rememberMe") === "true") {
-      this.$store.commit("addLoginToken", window.localStorage.getItem("token"));
-      this.$store.commit("setLogin", window.localStorage.getItem("login"));
-    }
-  },
-  destroyed() {
-    if (window.localStorage.getItem("rememberMe") === "false") {
-      window.localStorage.setItem("login", false);
-      window.localStorage.setItem("token", "");
+    },
+    isIndex() {
+      return this.$store.state.views.index;
     }
   },
   watch: {
     isShow(val) {
-      this.bgb.bgb2 = val;
+      this.bgMask.bgb2 = val;
+    },
+    isIndex(val) {
+      this.theTouchBgStyle.background =
+        "url(" + this.$store.state.views.bg[val] + ")";
+    }
+  },
+  created() { 
+    if (window.localStorage.getItem("login") === "true") {
+      const token = window.localStorage.getItem("token");
+      getAccountBaseMsg().then(result => {
+        if (result.data !== "err") {
+          this.$store.commit("setUserBaseMsg", result.data);
+        } else {
+          this.$store.commit("closeLogin");
+        }
+      });
     }
   }
 };
@@ -73,15 +73,11 @@ export default {
 <style>
 @import "assets/css/base.css";
 @import "assets/css/normalize.css";
-#fff {
-  position: relative;
-  z-index: 100000;
-}
 body {
   position: relative;
   background: rgb(238, 240, 241);
 }
-#bg {
+#theTouchBg {
   position: fixed;
   z-index: -11;
   top: -50px;

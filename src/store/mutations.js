@@ -10,17 +10,16 @@ export default {
       state.routerViews[a] = false;
     }
   },
-  addLoginToken(state, data){
-    state.loginToken = data
-  },
-  getuserBaseMsg(state, data){
+  setUserBaseMsg(state, data){
     state.userBaseMsg = {
       id:data.id,
-      nickname:data.nickname
+      nickname:data.nickname,
+      profilePhoto:data.profilePhoto
     }
   },
   setLogin(state, data){
-    state.login = data
+    state.login = true
+    state.loginToken = data
   },
   closeLogin(state){
     window.localStorage.setItem("token", "");

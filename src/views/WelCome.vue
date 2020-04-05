@@ -19,7 +19,6 @@
 import NavBar from "components/common/NavBar/navbar";
 import ContentPlate from "components/common/plate/main";
 import bodyTitle from "components/main/title";
-import { getAccountBaseMsg } from "network/accountMsg";
 export default {
   name: "viewsWelCome",
   data() {
@@ -43,7 +42,6 @@ export default {
   },
   watch: {
     userBaseMsg(val) {
-      console.log("改变了：", val);
       this.username = val;
     }
   },
@@ -54,22 +52,6 @@ export default {
   destroyed() {
     this.$store.state.routerViews.welcomeIsShow = false;
   },
-  created() {
-    if (window.localStorage.getItem("login") === "true") {
-      const token = window.localStorage.getItem("token");
-      getAccountBaseMsg().then(result => {
-        if (result.data !== "err") {
-          this.$store.commit("getuserBaseMsg", result.data);
-          console.log(result);
-          console.log(window.localStorage.getItem("login"));
-        }
-        else{
-          this.$store.commit('closeLogin');
-        }
-      });
-    }
-    console.log(this.$store.state.login)
-  }
 };
 </script>
 

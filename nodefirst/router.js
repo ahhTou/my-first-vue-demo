@@ -4,8 +4,9 @@ var router = express.Router();
 var getPlateMsg = require('./mongoose/WelcomePlateMsg');
 var getAccountMsg = require('./mongoose/accountMsg');
 var getAccountBaseMsg = require('./mongoose/accountBaseMsg');
+var getUserHatchDate = require('./mongoose/userhatchMsg')
 var Token = require('./token/token')
-
+//得到公共内容
 router.get('/welcomePlateMsg', function (req, res) {
   getPlateMsg.find(function (err, result) {
     if (err) {
@@ -14,11 +15,16 @@ router.get('/welcomePlateMsg', function (req, res) {
     res.send(result)
   })
 })
-
+router.get('/common/getUserHatchData', function (req, res) {
+  getUserHatchDate.find(function (err, result) {
+    if (err) res.status(500).send('Server Err')
+    else res.send(result)
+  })
+})
+//登录注册业务
 router.post('/accountCheckUsername', function (req, res) {
   getAccountMsg.find({ id: req.body.username.trim() }, function (err, result) {
     if (err) {
-      console.log('err')
       return res.status(500).send('Server Err')
     }
     else {
@@ -55,26 +61,26 @@ router.post('/registerAccount', function (req, res) {
     password,
     nickname
   })
-  newAccount.save().then(() => {
-    res.send('1')
+  var newAccountBaseData = new getAccountBaseMsg({
+    id,
+    nickname,
   })
+  newAccount.save()
+    .then(() => {
+      newAccountBaseData.save()
+    })
+    .then(() => {
+      res.send('1')
+    })
 })
-
 router.post('/loginAccount', function (req, res) {
   const id = req.body.account.userID.trim();
-  const email = req.body.account.userID.trim();
   const password = req.body.account.password.trim();
-
-
-  const errData = {
-    code: '0',
-    message: '登录失败'
-  }
-
+  const errData = { code: '0', message: '登录失败' }
   Promise.all
     ([
       new Promise((reslove, reject) => {
-        getAccountMsg.findOne({ email: email, password: password }, function (err, result) {
+        getAccountMsg.findOne({ email: id, password: password }, function (err, result) {
           if (err) return res.status(500).send('Server Err')
           else reslove(result)
         })
@@ -87,18 +93,18 @@ router.post('/loginAccount', function (req, res) {
       })
     ])
     .then(result => {
-      let userMsg
+      let userMsg = null
       for (let a in result) {
         if (result[a] !== null && result[a] !== '') userMsg = result[a]
       }
       if (userMsg === null) res.send(errData)
       else {
         const tokenData = {
-          id:userMsg.id,
-          password:userMsg.password,
+          id: userMsg.id,
+          password: userMsg.password,
         }
         const token = Token.createdToken(tokenData, 'ahhtou')
-        Token.userTokenUpdata(tokenData,{token:token})
+        Token.userTokenUpdata(tokenData, { token: token })
         const data = {
           code: '1',
           message: '登录成功',
@@ -112,14 +118,16 @@ router.post('/loginAccount', function (req, res) {
       }
     })
 })
-router.post('/getAccountBaseMsg', function(req, res){
+
+//通过token得到信息
+router.post('/getAccountBaseMsg', function (req, res) {
   const checkToken = Token.checkToken(req, 'ahhtou')
   //正确返回id，错误返回err
-  if(checkToken!=='err'){
-    getAccountBaseMsg.findOne({id:checkToken},function(err, result){
+  if (checkToken !== 'err') {
+    getAccountBaseMsg.findOne({ id: checkToken }, function (err, result) {
       if (err) {
         return res.status(500).send('Server Err')
-      }else{
+      } else {
         res.send(result)
       }
     })
