@@ -29,6 +29,7 @@ export default {
     };
   },
   mounted() {
+    this.$toast('123')
     const key = window.localStorage.getItem("rememberMe");
     const token = window.localStorage.getItem("token");
     const login = window.localStorage.getItem("login");
