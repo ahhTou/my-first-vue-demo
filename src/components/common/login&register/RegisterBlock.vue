@@ -1,64 +1,77 @@
 <template>
-    <form method="post">
-      <div>
-        <div class="tips">{{ tips[0]}}</div>
-        <input
-          type="text"
-          name="username"
-          placeholder="输入账户ID"
-          v-model="username"
-          :class="errOrNot[0]"
-        />
-      </div>
+  <form method="post">
+    <div>
+      <div class="tips">{{ tips[0]}}</div>
+      <!-- <input type="text" name="username" v-model="username" v-show="false" /> -->
+      <input
+        autocomplete="off"
+        type="text"
+        name="username"
+        placeholder="输入账户ID"
+        v-model="username"
+        :class="errOrNot[0]"
+      />
+    </div>
 
-      <div>
-        <div class="tips">{{ tips[1]}}</div>
-        <input type="text" name="email" placeholder="邮箱" v-model="email" :class="errOrNot[1]" />
-      </div>
+    <div>
+      <div class="tips">{{ tips[1]}}</div>
+      <!-- <input type="text" name="email" style="display:none" /> -->
+      <input
+        autocomplete="off"
+        type="text"
+        name="email"
+        placeholder="邮箱"
+        v-model="email"
+        :class="errOrNot[1]"
+      />
+    </div>
 
-      <div>
-        <div class="tips">{{ tips[2]}}</div>
-        <input
-          type="password"
-          name="password"
-          placeholder="请输入密码"
-          v-model="password"
-          :class="errOrNot[2]"
-        />
-      </div>
+    <div>
+      <div class="tips">{{ tips[2]}}</div>
+      <input
+        type="password"
+        name="password"
+        autocomplete="new-password"
+        placeholder="请输入密码"
+        v-model="password"
+        :class="errOrNot[2]"
+      />
+    </div>
 
-      <div>
-        <div class="tips">{{ tips[3]}}</div>
-        <input
-          type="password"
-          name="passwordAgain"
-          placeholder="请重新输入密码"
-          v-model="passwordAgain"
-          :class="errOrNot[3]"
-        />
-        <div class="tips">{{ tips[4]}}</div>
-      </div>
+    <div>
+      <div class="tips">{{ tips[3]}}</div>
+      <input
+        autocomplete="new-password"
+        type="password"
+        name="passwordAgain"
+        placeholder="请重新输入密码"
+        v-model="passwordAgain"
+        :class="errOrNot[3]"
+      />
+      <div class="tips">{{ tips[4]}}</div>
+    </div>
 
-      <div id="button">
-        <input
-          type="button"
-          id="btnSubmit"
-          class="btnLine"
-          value="注册"
-          @click="submit"
-          :class="errOrNot[4]"
-        />
-        <button
-          type="button"
-          id="btnClear"
-          class="btnLine"
-          name="butButton"
-          value="重置"
-          @click="clear"
-          :class="errOrNot[5]"
-        >重置</button>
-      </div>
-    </form>
+    <div id="button">
+      <input
+        autocomplete="off"
+        type="button"
+        id="btnSubmit"
+        class="btnLine"
+        value="注册"
+        @click="submit"
+        :class="errOrNot[4]"
+      />
+      <button
+        type="button"
+        id="btnClear"
+        class="btnLine"
+        name="butButton"
+        value="重置"
+        @click="clear"
+        :class="errOrNot[5]"
+      >重置</button>
+    </div>
+  </form>
 </template>
 
 
@@ -97,18 +110,18 @@ export default {
         }
       }
       if (isSubmitOk === 4) {
-        console.log("right");
         let id = this.username;
         let email = this.email;
         let password = md5(this.password);
         let msg = {
-          id: id,
-          email: email,
-          password: password
+          id,
+          email,
+          password
         };
         registerAccount(msg).then(res => {
           if (res.data == "1") {
-            this.$router.push('account/login')
+            this.$toast("注册成功,请登录");
+            this.$router.push("/account/login");
           }
         });
       } else {
@@ -149,7 +162,6 @@ export default {
     },
     email(val) {
       const emailFormat = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-      console.log();
       if (emailFormat.exec(this.email)) {
         this.tips[1] = this.tips[4];
         clearTimeout(this.time);
@@ -201,7 +213,7 @@ export default {
 
 
 <style scoped>
-@import url('./lib/common.css');
+@import url("./lib/common.css");
 @import "./lib/pc.css" screen and (min-width: 768px);
 @import "./lib/mobile.css" screen and (max-width: 768px);
 #btnClear {
@@ -211,7 +223,6 @@ export default {
 #btnClear:active {
   transform: scale(0.8, 0.8);
 }
-
 
 #btnClear:hover {
   background: rgb(214, 224, 224);

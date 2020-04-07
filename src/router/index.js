@@ -6,6 +6,15 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/account/profile',
+    name: 'profile',
+    component: () => import("views/profile"),
+    meta: {
+      title: '个人档案',
+      type: 'login'
+    }
+  },
+  {
     path: '/account',
     name: 'account',
     component: () => import("views/loginOrRegister"),
@@ -28,18 +37,16 @@ const routes = [
           title: '登录',
           type: 'noLogin',
         },
-      }
-
+      },
     ]
   },
-
   {
     path: '/',
     name: 'Home',
     component: () => import("views/WelCome"),
     meta: {
       title: '主页',
-      noKeepAlive:true,
+      noKeepAlive: true,
     },
   },
   {
@@ -53,9 +60,6 @@ const routes = [
 
 ]
 
-
-
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -63,20 +67,24 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.title) {
-    document.title = to.meta.title
-  }
   const type = to.meta.type
+  if (to.meta.title) document.title = to.meta.title
   if (type === 'noLogin') {
-    if(window.localStorage.getItem('login')==='true'){
-      console.log(window.localStorage.getItem('login'))
+    if (window.localStorage.getItem('login') === 'true') {
       store.state.routerViews.welcomeIsShow = true;
       next('/')
-    }
-    else next()
+    } else next()
   }
+
+  if (type === 'login') {
+    if (window.localStorage.getItem('login') !== 'true') {
+      store.state.routerViews.welcomeIsShow = true;
+      next('/')
+    } else next()
+  }
+
   else next()
- 
+
 })
 
 export default router

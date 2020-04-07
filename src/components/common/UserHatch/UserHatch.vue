@@ -2,16 +2,16 @@
   <div>
     <div id="hatchBoxMax">
       <div :class="hatchBoxAfter" @mouseenter="panelBiger" @mouseleave="panelLitter">
-        <div :class="hatchBox" :style="profilePhoto" :title="hoverTips" />
+        <div :class="hatchBox" :style="profilePhotoStyle" :title="hoverTips" />
       </div>
       <transition name="fadePanel">
         <div id="hatchPanel" v-show="panelShow" @mouseenter="panelBiger" @mouseleave="panelLitter">
           <p id="nickname">{{ nickname }}</p>
           <div v-for="(item, index) in hatchManager" :key="index" @click="clickTo(item)">
-              <div :class="item.id > 0 ? 'panelList' : 'panelListOut'">
-                <span class="fontLogo">{{ item.logoFont }}</span>
-                <span>{{ item.name }}</span>
-              </div>
+            <div :class="item.id > 0 ? 'panelList' : 'panelListOut'">
+              <span class="fontLogo">{{ item.logoFont }}</span>
+              <span>{{ item.name }}</span>
+            </div>
           </div>
         </div>
       </transition>
@@ -28,7 +28,7 @@ export default {
     return {
       nickname: null,
       hoverTips: null,
-      profilePhoto: null,
+      profilePhotoStyle: null,
       hatchManager: null,
       panelShow: false,
       hatchBox: { hatchBox: true, hatchBoxBiger: false },
@@ -40,9 +40,9 @@ export default {
       if (item.id === "-1") {
         this.$store.commit("closeLogin");
         this.$router.go(0);
-      }
-      else{
-        this.$router.push(item.url)
+      } else {
+        if(this.$route.path !== item.url ) this.$router.push(item.url);
+        else this.$router.go(0);
       }
     },
     panelBiger: function() {
@@ -57,20 +57,18 @@ export default {
     }
   },
   computed: {
-    watchNickname() {
+    watchBaseData() {
       return this.$store.state.userBaseMsg;
     }
   },
   watch: {
-    watchNickname(val) {
+    watchBaseData(val) {
       this.nickname = val.nickname;
       this.hoverTips = "点击进入 " + val.nickname + " 的档案";
-      console.log(val.profilePhoto);
-      this.profilePhoto = {
-        background: 'url("' + val.profilePhoto + '")',
-        backgroundSize: 'cover'
+      this.profilePhotoStyle = {
+        backgroundImage: 'url("' + val.profilePhoto + '")',
+        backgroundSize: "cover"
       };
-      console.log(this.profilePhoto);
     }
   },
   created() {
@@ -92,21 +90,22 @@ a {
   left: 0px;
   top: 0px;
   width: 300px;
-  height: 500px;
   display: flex;
   justify-content: center;
   margin: 10px;
-  z-index: 10000000;
+  z-index: 98;
 }
 /* 头像 */
 .hatchBox {
+  /* background-size: cover; */
+  background: cover;
   width: 85px;
   height: 85px;
   border-radius: 80px;
   opacity: 0.9;
   margin: 0px auto;
   position: absolute;
-  z-index: 100;
+  z-index: 98;
 }
 .hatchBoxBiger {
   opacity: 1;
@@ -120,7 +119,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 99;
+  z-index: 97;
   background: rgba(255, 255, 255, 0);
   background-size: cover;
   transition: all 0.5s;
@@ -218,6 +217,7 @@ a {
 }
 .fadePanel-enter,
 .fadePanel-leave-to {
+  position: absolute;
   opacity: 0;
   transform: scale(1, 0);
 }

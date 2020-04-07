@@ -29,7 +29,6 @@ export default {
     };
   },
   mounted() {
-    this.$toast('123')
     const key = window.localStorage.getItem("rememberMe");
     const token = window.localStorage.getItem("token");
     const login = window.localStorage.getItem("login");
@@ -45,6 +44,9 @@ export default {
     },
     isIndex() {
       return this.$store.state.views.index;
+    },
+    isLgoin() {
+      return this.$store.state.login;
     }
   },
   watch: {
@@ -54,9 +56,21 @@ export default {
     isIndex(val) {
       this.theTouchBgStyle.background =
         "url(" + this.$store.state.views.bg[val] + ")";
+    },
+    isLgoin(val) {
+      if (window.localStorage.getItem("login") === "true") {
+        const token = window.localStorage.getItem("token");
+        getAccountBaseMsg().then(result => {
+          if (result.data !== "err") {
+            this.$store.commit("setUserBaseMsg", result.data);
+          } else {
+            this.$store.commit("closeLogin");
+          }
+        });
+      }
     }
   },
-  created() { 
+  created() {
     if (window.localStorage.getItem("login") === "true") {
       const token = window.localStorage.getItem("token");
       getAccountBaseMsg().then(result => {

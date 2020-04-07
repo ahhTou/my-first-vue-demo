@@ -46,6 +46,7 @@ export default {
           }
           this.$store.commit("setUserBaseMsg", res.data);
           this.$store.commit("setLogin", res.data.token);
+          this.$toast('欢迎回来')
           this.$router.go(-1);
         } else {
           clearTimeout(timer);

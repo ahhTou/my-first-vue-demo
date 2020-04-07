@@ -12,28 +12,27 @@ export default {
   name: "thisBar",
   data() {
     return {
-      btnName:''
-    }
+      btnName: ""
+    };
   },
   computed: {
     btnNameWatch() {
       this.changeName();
-      return this.$route.name
+      return this.$route.name;
     }
   },
 
-  watch:{
-     btnNameWatch() {
+  watch: {
+    btnNameWatch() {
       this.changeName();
     }
   },
   methods: {
     changeName() {
-      if(this.$route.name === 'login'){
-        this.btnName = 'register'
-      }
-      else{
-        this.btnName = 'login'
+      if (this.$route.name === "login") {
+        this.btnName = "register";
+      } else {
+        this.btnName = "login";
       }
     },
     goHome() {
@@ -46,13 +45,8 @@ export default {
       let name = this.$route.name;
       this.$store.commit("changeViews");
       this.$store.state.routerViews.loginOrRegisterIsShow = true;
-      setTimeout(() => {
-        if (name === "login") {
-          this.$router.push("/account/register");
-        } else {
-          this.$router.push("/account/login");
-        }
-      }, 200);
+      if (name === "login") this.$router.push("/account/register");
+      else this.$router.push("/account/login");
     }
   }
 };

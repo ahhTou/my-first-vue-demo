@@ -10,22 +10,23 @@ export default {
       state.routerViews[a] = false;
     }
   },
-  setUserBaseMsg(state, data){
+  setUserBaseMsg(state, data) {
+    state.login = true
     state.userBaseMsg = {
-      id:data.id,
-      nickname:data.nickname,
-      profilePhoto:data.profilePhoto
+      id: data.id,
+      nickname: data.nickname,
+      profilePhoto: data.profilePhoto
     }
   },
-  setLogin(state, data){
+  setLogin(state, data) {
     state.login = true
     state.loginToken = data
   },
-  closeLogin(state){
+  closeLogin(state) {
     window.localStorage.setItem("token", "");
     window.localStorage.setItem("login", false);
     window.localStorage.setItem("rememberMe", false);
-    state.loginToken=''
+    state.loginToken = ''
     state.login = false
   }
 }

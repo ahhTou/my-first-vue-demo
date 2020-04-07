@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div v-if="$store.state.routerViews.lgoinBlockIsShow">
+    <div v-if="$store.state.routerViews.lgoinBlockIsShow" id="LBody">
       <login-block></login-block>
     </div>
   </transition>
@@ -23,4 +23,7 @@ export default {
 
 <style scoped>
 @import url("~views/lib/fade.css");
+#LBody {
+  overflow: hidden;
+}
 </style>

@@ -29,8 +29,8 @@ export default {
           newy = e.pageY;
           let mx = oldx - newx;
           let my = oldy - newy;
-          itDiv.style.left = mx / 40 + "px";
-          itDiv.style.top = my / 40 + "px";
+          itDiv.style.left = mx / 20 + "px";
+          itDiv.style.top = my / 20 + "px";
         };
         itDiv.onmouseleave = e => {
           document.onmousemove = null;
@@ -83,7 +83,7 @@ export default {
   position: relative;
   z-index: 1;
   transition: transform 2s;
-  cursor: pointer;
+  cursor: none;
 }
 #block:hover {
   transform: scale(1.05, 1.05);

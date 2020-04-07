@@ -12,6 +12,7 @@ const state = {
   userBaseMsg:{
     id:'未登录',
     nickname:'未登录',
+    gender:'未指定',
   },
   routerViews: {
     loginOrRegisterIsShow:false,

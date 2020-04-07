@@ -1,14 +1,13 @@
 <template>
   <transition name="fade">
-    <div v-if="$store.state.routerViews.loginOrRegisterIsShow">
+    <div v-if="$store.state.routerViews.loginOrRegisterIsShow" id="lorBody">
       <body-title>
         <template v-slot:big>{{ lrTitle }}</template>
       </body-title>
       <div id="lorRBox">
         <div id="barAndRouterViewsBody">
-          <this-bar>
-          </this-bar>
-          <router-view></router-view>
+          <this-bar></this-bar>
+            <router-view></router-view>
         </div>
       </div>
     </div>
@@ -23,8 +22,8 @@ export default {
   name: "",
   data() {
     return {
-      lrTitle:'',
-    }
+      lrTitle: ""
+    };
   },
   components: {
     thisBar,
@@ -36,15 +35,15 @@ export default {
     this.barTitle = this.$route.meta.title;
   },
   computed: {
-    routerName(){
+    routerName() {
       return this.$route.name;
     }
   },
   watch: {
-    routerName(){
+    routerName() {
       this.lrTitle = this.$route.name;
     }
-  },
+  }
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <transition name="fade" mode="out-in">
-    <div v-if="$store.state.routerViews.welcomeIsShow">
+    <div v-if="$store.state.routerViews.welcomeIsShow" id="welBody">
       <body-title>
         <template v-slot:big>Hi~</template>
         <template v-slot:little>{{ username }}</template>
@@ -58,6 +58,9 @@ export default {
 
 <style scoped>
 @import url("./lib/fade.css");
+#welBody{
+    overflow: hidden;
+}
 #Content {
   display: flex;
   justify-content: center;

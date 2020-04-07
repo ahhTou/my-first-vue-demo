@@ -89,7 +89,6 @@ export default {
   },
   methods: {
     exitLogin(id, event) {
-      console.log(id)
       if(id===-1){
       this.$store.commit('closeLogin');
       this.$router.go(0);
@@ -160,7 +159,6 @@ export default {
 
     a1() {
       let that = this;
-      console.log("anm===" + that.hatchBoxMax.transitionAnm);
     }
   },
 
@@ -225,7 +223,7 @@ body {
   display: flex;
   justify-content: center;
   margin: 10px;
-  z-index: 10000000;
+  z-index: 99;
 }
 .hatchBoxMaxOpen {
   width: 1000px;
@@ -268,7 +266,7 @@ body {
   justify-content: center;
   align-items: center;
 
-  z-index: 100;
+  z-index: 99;
   background: rgba(255, 255, 255, 0);
   background-size: cover;
   transition: all 0.5s;
@@ -301,7 +299,7 @@ body {
   position: absolute;
   border-radius: 5px;
   top: 75px;
-  z-index: 1;
+  z-index: 99;
   box-shadow: 2px 2px 5px rgb(138, 138, 138);
   transform-origin: 50% 0%;
 
