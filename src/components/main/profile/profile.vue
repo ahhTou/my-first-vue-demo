@@ -6,10 +6,10 @@
         <div id="slotContent">
           <div id="header">
             <input
+              id="clear"
               type="file"
               class="profilePhoto"
-              @change="changePhoto"
-              v-show="isEdit"
+              @input="changePhoto"
               :style="style"
             />
             <div class="profilePhoto" :style="style" />
@@ -27,22 +27,21 @@
           </div>
           <div id="center"></div>
           <div id="footer">
-            <button id="btnEdit" @click="changeEdit" v-show="!isEdit">编辑</button>
+            <button id="btnEdit" @click="changeEdit" v-show="!isEdit">
+              编辑
+            </button>
             <button id="btnEdit" @click="edit" v-show="isEdit">完成</button>
           </div>
         </div>
       </template>
     </wrapper>
-    <transition name="fade">
-      <div id="editImgWindow" v-if="isOpen">
-        <img :src="uploadImg">
-      </div>
-    </transition>
+    <img-cropper :uploadImg="uploadImg" ref="cropper"></img-cropper>
   </div>
 </template>
 
 <script>
 import wrapper from "./wrapper";
+import imgCropper from "components/widget/ImgCropper/main.vue";
 export default {
   name: "profie",
   data() {
@@ -53,9 +52,8 @@ export default {
         nickname: "nickname 未加载",
         profilePhoto: ""
       },
-      uploadImg:"",
-      isEdit: false,
-      isOpen: false
+      uploadImg: "",
+      isEdit: false
     };
   },
   methods: {
@@ -63,23 +61,26 @@ export default {
       this.isEdit = !this.isEdit;
     },
     changePhoto() {
-      var formData = new FormData();
-      this.uploadImg = window.URL.createObjectURL(
-        document.querySelector("input[type=file]").files[0]
-      );
-      this.isOpen = true
-      console.log(imgUrl);
-      this.msg.profilePhoto = imgUrl;
-      console.log("idoooo");
-      formData.append(
-        "userfile",
-        document.querySelector("input[type=file]").files[0]
-      );
+      this.isEdit = !this.isEdit;
+      // this.uploadImg = window.URL.createObjectURL(
+      //   document.querySelector("input[type=file]").files[0]
+      // );
+      // this.$refs.cropper.isOpen = true;
+
+      let file = document.querySelector("input[type=file]").files[0];
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = e => {
+        this.uploadImg = reader.result;
+        this.$refs.cropper.isOpen = true;
+      };
+
     },
     edit() {}
   },
   components: {
-    wrapper
+    wrapper,
+    imgCropper
   },
   created() {
     this.msg = this.$store.getters.getUserBaseMsg;
@@ -106,14 +107,15 @@ export default {
 };
 </script>
 
-
 <style scoped>
-@import url("~views/lib/fade.css");
+@import url("~assets/css/base.css");
 .id {
+  padding-left: 5px;
   align-self: stretch;
   font-size: 20px;
 }
 .nickname {
+  padding-left: 5px;
   width: 100%;
   color: #d3515b;
   font-size: 25px;
@@ -121,6 +123,7 @@ export default {
   border: 1px solid rgba(254, 255, 255, 0);
 }
 #nickname {
+  padding-left: 5px;
   width: 100%;
   color: #d3515b;
   font-size: 25px;
@@ -156,7 +159,6 @@ input {
   width: 100px;
   height: 100px;
   border-radius: 100px;
-  border: 1px solid #aaa;
 }
 #center {
   flex: 1;
@@ -179,17 +181,5 @@ input {
 }
 #btnEdit:hover {
   background: rgb(222, 225, 230);
-}
-#editImgWindow {
-  position: fixed;
-  z-index: 100;
-  top: 50%;
-  left: 50%;
-  width: 80%;
-  height: 80%;
-  border-radius: 20px;
-  background: black;
-  box-shadow: 10px 10px 20px #aaa;
-  transform: translate(-50%, -50%);
 }
 </style>

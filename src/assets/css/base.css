@@ -1,20 +1,46 @@
-  
-@import "./normalize.css";
+  @import "./normalize.css";
 
-html {
-  overflow-y: scroll;
-}
+  html {
+    overflow-y: scroll;
+  }
 
-:root {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
+  :root {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 
-:root body {
-  /* position: absolute; */
-}
+  :root body {
+    /* position: absolute; */
+  }
 
-body {
-  width: 100vw;
-  overflow: hidden;
-}
+  body {
+    width: 100vw;
+    overflow: hidden;
+  }
+
+  input {
+    outline: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
+    outline: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+
+  }
+
+  .fade0-enter-active,
+  .fade0-leave-active {
+    transition: all 1s;
+  }
+
+  .fade0-enter,
+  .fade0-leave-to {
+    opacity: 0;
+    transform: translateY(200px);
+    position: absolute;
+  }
