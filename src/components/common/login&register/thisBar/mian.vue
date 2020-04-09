@@ -6,7 +6,6 @@
   </div>
 </template>
 
-
 <script>
 export default {
   name: "thisBar",
@@ -39,7 +38,7 @@ export default {
       this.$store.commit("changeViews");
       setTimeout(() => {
         this.$router.push("/");
-      }, 200);
+      }, 300);
     },
     goWhere() {
       let name = this.$route.name;
@@ -51,7 +50,6 @@ export default {
   }
 };
 </script>
-
 
 <style scoped>
 @import url("~assets/css/normalize.css");

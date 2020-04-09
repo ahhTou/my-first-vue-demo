@@ -14,7 +14,6 @@
   </transition>
 </template>
 
-
 <script>
 import NavBar from "components/common/NavBar/navbar";
 import ContentPlate from "components/common/plate/main";
@@ -51,15 +50,14 @@ export default {
   },
   destroyed() {
     this.$store.state.routerViews.welcomeIsShow = false;
-  },
+  }
 };
 </script>
 
-
 <style scoped>
 @import url("./lib/fade.css");
-#welBody{
-    overflow: hidden;
+#welBody {
+  overflow: hidden;
 }
 #Content {
   display: flex;

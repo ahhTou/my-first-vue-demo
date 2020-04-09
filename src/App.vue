@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <router-view />
     <back-to-top />
     <tow-color-bg />
     <div :class="bgMask" />
     <user-hatch v-show="$store.state.login" />
     <div id="theTouchBg" :style="theTouchBgStyle" />
+    <router-view />
   </div>
 </template>
 
@@ -88,10 +88,6 @@ export default {
 <style>
 @import "assets/css/base.css";
 @import "assets/css/normalize.css";
-body {
-  position: relative;
-  background: rgb(238, 240, 241);
-}
 #theTouchBg {
   position: fixed;
   z-index: -11;

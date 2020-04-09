@@ -1,31 +1,29 @@
 <template>
   <span id="body1">
-    <div id="btn" @click="goto" >登入</div>
+    <div id="btn" @click="goto">登入</div>
   </span>
 </template>
-
 
 <script>
 export default {
   name: "btnLogin",
-    methods: {
+  methods: {
     goto() {
-      this.$store.state.routerViews.welcomeIsShow = false;
-      setTimeout(()=>{
+      this.$store.commit("changeViews");
+      setTimeout(() => {
         this.$router.push("/account/login");
-      },150)
+      }, 300);
     }
   }
-}; 
-</script> 
-
+};
+</script>
 
 <style scoped>
 #body1 {
   float: left;
   /* width: 230px; */
   height: 100px;
-      margin: 0px 10px 0px 30px;
+  margin: 0px 10px 0px 30px;
   display: flex;
   justify-content: center;
   align-items: center;

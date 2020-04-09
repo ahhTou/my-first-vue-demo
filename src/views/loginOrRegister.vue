@@ -1,19 +1,20 @@
 <template>
-  <transition name="fade">
-    <div v-if="$store.state.routerViews.loginOrRegisterIsShow" id="lorBody">
-      <body-title>
-        <template v-slot:big>{{ lrTitle }}</template>
-      </body-title>
-      <div id="lorRBox">
-        <div id="barAndRouterViewsBody">
-          <this-bar></this-bar>
+  <div>
+    <transition name="fade" mode="out-in">
+      <div v-if="$store.state.routerViews.loginOrRegisterIsShow" id="lorBody">
+        <body-title>
+          <template v-slot:big>{{ lrTitle }}</template>
+        </body-title>
+        <div id="lorRBox">
+          <div id="barAndRouterViewsBody">
+            <this-bar></this-bar>
             <router-view></router-view>
+          </div>
         </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </div>
 </template>
-
 
 <script>
 import thisBar from "components/common/login&register/thisBar/mian";
@@ -46,7 +47,6 @@ export default {
   }
 };
 </script>
-
 
 <style scoped>
 @import url("./lib/fade.css");

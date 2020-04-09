@@ -34,7 +34,7 @@ export default {
       this.$store.commit("changeViews");
       setTimeout(() => {
         this.$router.push("/account/register");
-        }, 150);
+        }, 300);
     }
   },
   watch: {

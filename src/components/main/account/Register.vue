@@ -1,11 +1,10 @@
 <template>
   <transition name="fade">
     <div v-if="$store.state.routerViews.registerBlockIsShow" id="RBody">
-  <register-block></register-block>
+      <register-block></register-block>
     </div>
   </transition>
 </template>
-
 
 <script>
 import RegisterBlock from "components/common/login&register/RegisterBlock";
@@ -27,8 +26,8 @@ export default {
 
 <style scoped>
 @import url("~views/lib/fade.css");
-#RBody{
-    overflow: hidden;
+#RBody {
+  overflow: hidden;
 }
 #content {
   display: flex;
