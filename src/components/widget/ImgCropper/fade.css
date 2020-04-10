@@ -1,0 +1,31 @@
+.fadeZ-enter-active,
+.fadeZ-leave-active {
+  transition: all 0.5s;
+}
+
+.fadeZ-enter,
+.fadeZ-leave-to {
+  opacity: 0;
+  transform: translateY(-100%);
+  position: absolute;
+}
+
+.fadeX-enter-active {
+  transition: all 0.3s;
+  transition-delay: 0.1s;
+  position: absolute;
+}
+.fadeX-leave-active {
+  transition: all 0.1s;
+  position: absolute;
+}
+.fadeX-enter {
+  opacity: 0;
+  position: absolute;
+  transform: translateX(-10%);
+}
+.fadeX-leave-to {
+  opacity: 0;
+  transform: translateX(-10%);
+  position: absolute;
+}

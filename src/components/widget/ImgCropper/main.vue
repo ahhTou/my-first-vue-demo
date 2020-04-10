@@ -1,45 +1,78 @@
 <template>
   <transition name="fadeZ">
-    <div id="editImgMask" v-if="isOpen">
-      <div id="editImgWindow">
-        <div id="btnLine">
-          <button class="cricleBtn" id="exitBtn" @click="exitEditImg">
-            close
-          </button>
-          <button class="cricleBtn" id="cropperBtn" @click="cropperCoef">
-            裁剪
-          </button>
-        </div>
+    <div
+      id="editImgMask"
+      v-if="isOpen"
+      @touchmove.prevent.stop
+      @mousewheel.prevent
+    >
+      <transition name="fadeX">
         <div
-          :style="{ width: theCropper + 'px', height: theCropper + 'px' }"
-          id="selectCropper"
-          v-drag="{
-            width: img.width,
-            height: img.height,
-            cropper: theCropper
-          }"
-        ></div>
-        <img
-          id="imgDom"
-          draggable="false"
+          id="editImgWindow"
+          v-show="isEdit"
           :style="{
-            width: img.width + 'px',
-            height: img.height + 'px'
+            width: windowsWidth + 'px',
+            height: windwosHeight + 'px',
+            transform: ' scale(' + autoChange + ')'
           }"
-          :src="uploadImg"
-        />
-      </div>
+        >
+          <div id="btnLine">
+            <button class="cricleBtn exitBtn" @click="exitEditImg">
+              close
+            </button>
+            <button class="cricleBtn cropperBtn" @click="cropperCoef">
+              裁剪
+            </button>
+          </div>
+          <div
+            id="selectCropper"
+            :style="{
+              width: theCropper + 'px',
+              height: theCropper + 'px'
+            }"
+            v-drag="{
+              width: img.width,
+              height: img.height,
+              cropper: theCropper
+            }"
+          ></div>
+          <img
+            id="imgDom"
+            draggable="false"
+            :style="{
+              width: img.width + 'px',
+              height: img.height + 'px'
+            }"
+            :src="uploadImg"
+          />
+        </div>
+      </transition>
+      <transition name="fadeX">
+        <div id="cropperResWindow" v-show="!isEdit">
+          <img :src="theCropperImg" />
+          <div id="rectBtnLine">
+            <button class="cropperBtn rectBtn" @click="completeCropper">
+              完成
+            </button>
+            <button @click="exitEditImg" class="exitBtn rectBtn">
+              取消
+            </button>
+          </div>
+        </div>
+      </transition>
     </div>
   </transition>
 </template>
 
 <script>
 import drag from './directives/cropper-drag'
+function res() {}
 export default {
   name: 'ImgCropper',
   data() {
     return {
       isOpen: false,
+      isEdit: true,
       img: {
         width: '',
         height: ''
@@ -49,7 +82,11 @@ export default {
         height: ''
       },
       canvasData: '',
-      theCropper: ''
+      theCropper: '',
+      theCropperImg: '',
+      autoChange: 1,
+      windowsWidth: '',
+      windwosHeight: ''
     }
   },
   directives: {
@@ -82,8 +119,8 @@ export default {
         coefSize
       )
     },
-
     exitEditImg() {
+      this.isEdit = true
       this.isOpen = false
       //清空文件表单
       let file = document.getElementById('clear')
@@ -95,37 +132,44 @@ export default {
       cropper.style.height = this.theCropper + 'px'
     },
     setImg(imgData) {
-      const vw = document.body.clientWidth / 2
-      const vh = document.body.clientHeight / 2
+      let that = this
       let img = new Image()
-      const that = this
       img.onload = function() {
+        const vw = window.innerWidth / 3
+        const vh = window.innerHeight / 1.5
         if (this.width >= this.height) {
           that.img.width = vw
-          let x = that.img.width / this.width
-          that.img.height = this.height * x
+          let x = this.height / this.width
+          that.img.height = that.img.width * x
           that.theCropper = that.img.height
         } else {
           that.img.height = vh
-          let x = that.img.height / this.height
-          that.img.width = this.width * x
+          let x = this.width / this.height
+          that.img.width = that.img.height * x
           that.theCropper = that.img.width
         }
         that.rawImg.width = this.width
         that.rawImg.height = this.height
+        that.windowsWidth = that.img.width * 1.3
+        that.windwosHeight = that.img.height * 1.3
       }
-      console.log(img)
+      console.log('123')
       img.src = imgData
       this.uploadImg = img.src
       this.canvasData = img
+    },
+    completeCropper() {
+      this.isOpen = false
+      this.isEdit = true
+      res(this.theCropperImg)
+    },
+    open(callback) {
+      this.isOpen = !this.isOpen
+      res = callback
     }
   },
   computed: {
     cropperImg(coefWidth, coefHeight, coefSize) {
-      console.log(coefWidth, coefHeight, coefSize)
-      // console.log(this.uploadImg)
-      // console.log(this.rawImg.width)
-      // console.log(this.rawImg.height)
       const widthGo = this.rawImg.width * coefWidth
       const heightGO = this.rawImg.height * coefHeight
       const canvas = document.createElement('canvas')
@@ -142,95 +186,54 @@ export default {
         canvas.height,
         canvas.height
       )
-      var image = new Image()
-      image.src = canvas.toDataURL('image/png')
+      // var image = new Image()
+      // image.src = canvas.toDataURL('image/png')
+      // this.theCropperImg = image.src
+      // this.isEdit = false
+      new Promise((reslove, reject) => {
+        canvas.toBlob(blob => {
+          const url = URL.createObjectURL(blob)
+          const res = {
+            url,
+            blob
+          }
+          reslove(res)
+        })
+      }).then(res => {
+        this.theCropperImg = res.url
+        this.isEdit = false
+      })
     }
   },
+  mounted() {},
   watch: {
     isOpen(val) {
       if (val) {
         this.setImg(this.uploadImg)
+        const width = document.body.clientWidth
+        const height = document.body.clientHeight
+        window.onresize = () => {
+          this.$toast('裁剪中改变窗口大小会导致裁剪失败')
+          let newWidth = document.body.clientWidth
+          let newHeight = document.body.clientHeight
+          let w = newWidth / width
+          let h = newHeight / height
+          let x = w < h ? w : h
+          if (x < 1) {
+            this.autoChange = 1 * x
+          }
+        }
+      }
+      if (!val) {
+        window.onresize = null
+        this.autoChange = 1
       }
     }
   }
 }
 </script>
 
-<style scoped>
-#editImgMask {
-  position: fixed;
-  z-index: 100;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.1);
-}
-#btnLine {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  display: flex;
-  flex-direction: column;
-}
-.cricleBtn {
-  width: 80px;
-  height: 80px;
-  color: white;
-  border-radius: 40px;
-  margin: 10px;
-
-  transition: all 0.3s;
-}
-#exitBtn {
-  background: rgb(255, 121, 121);
-}
-#exitBtn:hover {
-  background: rgb(236, 71, 71);
-}
-#cropperBtn {
-  background: rgb(94, 158, 255);
-}
-#cropperBtn:hover {
-  background: rgb(51, 133, 255);
-}
-#editImgWindow {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  width: 80%;
-  height: 80%;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 20px 20px 40px #aaa;
-}
-#editImgWindow img {
-  /* position: absolute; */
-  z-index: 1;
-  user-select: none;
-}
-#selectCropper {
-  /* border-radius: 100%; */
-  cursor: pointer;
-  border: 1px solid rgb(0, 0, 0);
-  z-index: 2;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.5);
-}
-.fadeZ-enter-active,
-.fadeZ-leave-active {
-  transition: all 0.5s;
-}
-
-.fadeZ-enter,
-.fadeZ-leave-to {
-  opacity: 0;
-  transform: translateY(-100%);
-  position: absolute;
-}
+<style lang="scss" scoped>
+@import './fade.css';
+@import './scss/main.scss';
 </style>

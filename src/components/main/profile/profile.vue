@@ -40,41 +40,38 @@
 </template>
 
 <script>
-import wrapper from "./wrapper";
-import imgCropper from "components/widget/ImgCropper/main.vue";
+import wrapper from './wrapper'
+import imgCropper from 'components/widget/ImgCropper/main.vue'
 export default {
-  name: "profie",
+  name: 'profie',
   data() {
     return {
-      style: "",
+      style: '',
       msg: {
-        id: "id 未加载",
-        nickname: "nickname 未加载",
-        profilePhoto: ""
+        id: 'id 未加载',
+        nickname: 'nickname 未加载',
+        profilePhoto: ''
       },
-      uploadImg: "",
+      uploadImg: '',
       isEdit: false
-    };
+    }
   },
   methods: {
     changeEdit() {
-      this.isEdit = !this.isEdit;
+      this.isEdit = !this.isEdit
     },
     changePhoto() {
-      this.isEdit = !this.isEdit;
-      // this.uploadImg = window.URL.createObjectURL(
-      //   document.querySelector("input[type=file]").files[0]
-      // );
-      // this.$refs.cropper.isOpen = true;
-
-      let file = document.querySelector("input[type=file]").files[0];
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
+      this.isEdit = !this.isEdit
+      let file = document.querySelector('input[type=file]').files[0]
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
       reader.onload = e => {
-        this.uploadImg = reader.result;
-        this.$refs.cropper.isOpen = true;
-      };
-
+        this.uploadImg = reader.result
+        const _this = this
+        this.$refs.cropper.open(res => {
+          _this.msg.profilePhoto = res
+        })
+      }
     },
     edit() {}
   },
@@ -83,32 +80,42 @@ export default {
     imgCropper
   },
   created() {
-    this.msg = this.$store.getters.getUserBaseMsg;
+    this.msg = this.$store.getters.getUserBaseMsg
   },
   mounted() {
-    this.msg = this.$store.getters.getUserBaseMsg;
+    this.msg = this.$store.getters.getUserBaseMsg
   },
   computed: {
     thisMsg() {
-      return this.$store.getters.getUserBaseMsg;
+      return this.$store.state.userBaseMsg
     }
   },
   watch: {
-    thisMsg() {
-      this.msg = this.$store.getters.getUserBaseMsg;
+    thisMsg: {
+      handler() {
+        console.log('123')
+        this.msg = this.$store.getters.getUserBaseMsg
+      },
+      immediate: true,
+      deep: true
     },
-    msg(val) {
-      this.style = {
-        backgroundImage: "url(" + this.msg.profilePhoto + ")",
-        backgroundSize: "cover"
-      };
+    msg: {
+      handler(newName, oldName) {
+        console.log('321')
+        this.style = {
+          backgroundImage: 'url(' + this.msg.profilePhoto + ')',
+          backgroundSize: 'cover'
+        }
+      },
+      immediate: true,
+      deep: true
     }
   }
-};
+}
 </script>
 
 <style scoped>
-@import url("~assets/css/base.css");
+@import url('~assets/css/base.css');
 .id {
   padding-left: 5px;
   align-self: stretch;
@@ -131,7 +138,7 @@ export default {
   outline: none;
   border: 1px solid #aaa;
 }
-input[type="file"] {
+input[type='file'] {
   opacity: 0;
   position: absolute;
 }

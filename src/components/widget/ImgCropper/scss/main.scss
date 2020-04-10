@@ -1,0 +1,51 @@
+@import './normal';
+@import './button/pc.scss';
+#editImgMask {
+  @include mask;
+  #editImgWindow {
+    @include flexCenter;
+    position: relative;
+    z-index: 100;
+    border-radius: 20px;
+    box-shadow: 20px 20px 40px #aaa;
+    background: rgba(255, 255, 255, 0.9);
+    #btnLine {
+      position: fixed;
+      z-index: 100;
+      top: 15px;
+      right: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+    #selectCropper {
+      cursor: pointer;
+      z-index: 2;
+      position: absolute;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgb(0, 0, 0);
+    }
+    img {
+      z-index: -1;
+      user-select: none;
+    }
+  }
+  #cropperResWindow {
+    @include flexCenter;
+    overflow: hidden;
+    padding: 50px;
+    flex-direction: column;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 20px 20px 40px #aaa;
+    img {
+      border-radius: 0.3vw;
+      width: 500px;
+      margin: 15px;
+    }
+    #rectBtnLine {
+      width: 500px;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

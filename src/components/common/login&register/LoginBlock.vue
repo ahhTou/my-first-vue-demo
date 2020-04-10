@@ -66,8 +66,8 @@ export default {
 
 <style scoped>
 @import url("./lib/common.css");
-@import "./lib/pc.css" screen and (min-width: 768px);
 @import "./lib/mobile.css" screen and (max-width: 768px);
+@import "./lib/pc.css" screen and (min-width: 768px);
 #checkBoxStyle {
   margin: 0px 10px 10px 10px;
   height: 40px;

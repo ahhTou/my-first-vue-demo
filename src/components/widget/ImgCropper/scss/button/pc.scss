@@ -1,0 +1,29 @@
+$exitRed_normal: rgb(255, 121, 121);
+$exitRed_hover: rgb(236, 71, 71);
+$btnBlue_normal: rgb(94, 158, 255);
+$btnBlue_hover: rgb(51, 133, 255);
+.exitBtn {
+  background: $exitRed_normal;
+  &:hover {
+    background: $exitRed_hover;
+  }
+}
+.cropperBtn {
+  background: $btnBlue_normal;
+  &:hover {
+    background: $btnBlue_hover;
+  }
+}
+.cricleBtn {
+  width: 80px;
+  height: 80px;
+  color: white;
+  border-radius: 40px;
+  margin: 10px;
+  transition: all 0.3s;
+}
+.rectBtn {
+  flex: 1;
+  height: 3vw;
+  transition: all 0.3s;
+}

@@ -6,32 +6,28 @@
   </div>
 </template>
 
-
 <script>
 export default {
-  name: "tC",
-};
+  name: 'tC'
+}
 </script>
 
-
 <style scoped>
-@import "../../../assets/css/base.css";
-@import "../../../assets/css/normalize.css";
+@import '../../../assets/css/base.css';
+@import '../../../assets/css/normalize.css';
 #up {
-  background-color: rgba(189, 208, 207,0.8);
+  background-color: rgba(189, 208, 207, 0.8);
   height: 500px;
   overflow: hidden;
   transform: rotate(10deg) scale(1.5);
 }
 #f {
-  /* overflow: hidden; */
   width: 1920px;
   height: 100vh;
 }
 #all {
-  /* position: fixed; */
   position: absolute;
-  top:-300px;
+  top: -300px;
   z-index: -5;
 }
 </style>
