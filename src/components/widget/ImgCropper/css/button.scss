@@ -1,0 +1,61 @@
+$exitRed_normal: rgb(255, 121, 121);
+$exitRed_hover: rgb(236, 71, 71);
+$btnBlue_normal: rgb(94, 158, 255);
+$btnBlue_hover: rgb(51, 133, 255);
+$circleBtn_width: 80px;
+$circleBtn_height: $circleBtn_width;
+$circleBtn_radius: $circleBtn_width/2;
+
+.exitBtn {
+  background: $exitRed_normal;
+  &:hover {
+    background: $exitRed_hover;
+  }
+}
+.cropperBtn {
+  background: $btnBlue_normal;
+  &:hover {
+    background: $btnBlue_hover;
+  }
+}
+.cricleBtn {
+  min-width: $circleBtn_width;
+  min-height: $circleBtn_height;
+  color: white;
+  border-radius: $circleBtn_radius;
+  margin: 10px;
+  transition: all 0.3s;
+}
+@mixin resSass($width) {
+  img {
+    width: $width;
+    margin: 15px;
+  }
+  #rectBtnLine {
+    width: $width;
+    display: flex;
+    .rectBtn {
+      color: white;
+      transition: all 0.3s;
+    }
+    @media (orientation: portrait) {
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      .rectBtn {
+        width: $width;
+        height: $width/6;
+        font-size: $width/30;
+        margin: 3px;
+      }
+    }
+    @media (orientation: landscape) {
+      justify-content: space-between;
+      .rectBtn {
+        width: $width/2.2;
+        height: $width/2.8/3;
+        font-size: $width/30;
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 @import './normal';
-@import './button/pc.scss';
+@import './button';
 #editImgMask {
   @include mask;
   #editImgWindow {
@@ -10,12 +10,12 @@
     box-shadow: 20px 20px 40px #aaa;
     background: rgba(255, 255, 255, 0.9);
     #btnLine {
-      position: fixed;
-      z-index: 100;
-      top: 15px;
-      right: 15px;
       display: flex;
       flex-direction: column;
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 100;
     }
     #selectCropper {
       cursor: pointer;
@@ -36,16 +36,14 @@
     flex-direction: column;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.9);
-    box-shadow: 20px 20px 40px #aaa;
-    img {
-      border-radius: 0.3vw;
-      width: 500px;
-      margin: 15px;
+    box-shadow: 20px 20px 40px vw#aaa;
+    @media (orientation: landscape) {
+      $res_width: 35vw;
+      @include resSass($res_width);
     }
-    #rectBtnLine {
-      width: 500px;
-      display: flex;
-      justify-content: space-between;
+    @media (orientation: portrait) {
+      $res_width: 70vw;
+      @include resSass($res_width);
     }
   }
 }

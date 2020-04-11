@@ -17,17 +17,17 @@ export default {
 @import '../../../assets/css/normalize.css';
 #up {
   background-color: rgba(189, 208, 207, 0.8);
-  height: 500px;
+  height: 50vh;
   overflow: hidden;
   transform: rotate(10deg) scale(1.5);
 }
 #f {
-  width: 1920px;
+  width: 100vw;
   height: 100vh;
 }
 #all {
   position: absolute;
-  top: -300px;
+  top: -30vh;
   z-index: -5;
 }
 </style>

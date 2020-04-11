@@ -27,10 +27,10 @@
           </div>
           <div id="center"></div>
           <div id="footer">
-            <button id="btnEdit" @click="changeEdit" v-show="!isEdit">
+            <button class="btnEdit" @click="changeEdit" v-show="!isEdit">
               编辑
             </button>
-            <button id="btnEdit" @click="edit" v-show="isEdit">完成</button>
+            <button class="btnEdit" @click="edit" v-show="isEdit">完成</button>
           </div>
         </div>
       </template>
@@ -114,79 +114,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @import url('~assets/css/base.css');
-.id {
-  padding-left: 5px;
-  align-self: stretch;
-  font-size: 20px;
-}
-.nickname {
-  padding-left: 5px;
-  width: 100%;
-  color: #d3515b;
-  font-size: 25px;
-  margin: 0 0 10px 0;
-  border: 1px solid rgba(254, 255, 255, 0);
-}
-#nickname {
-  padding-left: 5px;
-  width: 100%;
-  color: #d3515b;
-  font-size: 25px;
-  margin: 0 0 10px 0;
-  outline: none;
-  border: 1px solid #aaa;
-}
-input[type='file'] {
-  opacity: 0;
-  position: absolute;
-}
-input {
-  outline: none;
-  border: 1px solid #aaa;
-  padding: 0;
-}
-#slotContent {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-#header {
-  display: flex;
-}
-#headerTitle {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-.profilePhoto {
-  cursor: pointer;
-  width: 100px;
-  height: 100px;
-  border-radius: 100px;
-}
-#center {
-  flex: 1;
-}
-#footer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-#btnEdit {
-  font-size: 20px;
-  width: 100%;
-  height: 50px;
-  border-radius: 5px;
-  outline: none;
-  border: none;
-  transition: all 0.3s;
-  background: rgb(222, 225, 230, 0.6);
-  margin: 2%;
-}
-#btnEdit:hover {
-  background: rgb(222, 225, 230);
-}
+@import './css/main';
 </style>

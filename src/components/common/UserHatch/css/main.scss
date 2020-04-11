@@ -1,0 +1,60 @@
+@import './css/need';
+#wrap {
+  $wrap-width: 220px;
+  $photo_width: $wrap-width * 0.4;
+  $photo_wrap_width: $photo_width * 1.02;
+  $panel_top: $photo_width * 0.75;
+  position: relative;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  width: $wrap-width;
+  .photo_wrap {
+    @include flexCenter;
+    @include circle-set($photo_wrap_width);
+    position: absolute;
+    z-index: 99;
+    background: rgba(255, 255, 255, 0);
+    transition: all 0.5s;
+    transform-origin: 50% 0%;
+
+    .photo {
+      @include circle-set($photo_width);
+      opacity: 0.9;
+      cursor: pointer;
+    }
+  }
+  #panel {
+    position: absolute;
+    z-index: 98;
+    top: $panel_top;
+    width: $wrap-width;
+    background-color: white;
+    border-radius: $wrap-width * 0.02;
+    display: inline-block;
+    box-shadow: 2px 2px 5px rgb(138, 138, 138);
+    transform-origin: 50% 0%;
+    #nickname {
+      @include flexCenter;
+      margin-top: $panel_top;
+      font-size: $wrap-width * 0.05;
+      color: $color_red;
+    }
+    .panelList {
+      @include panelList($photo_width);
+
+      &:hover {
+        background: rgb(219, 219, 219);
+      }
+    }
+    .panelList_out {
+      @include panelList($photo_width);
+
+      &:hover {
+        transition: color 0s;
+        background: rgb(255, 121, 121);
+        color: white;
+      }
+    }
+  }
+}

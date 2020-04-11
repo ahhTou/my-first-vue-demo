@@ -1,0 +1,50 @@
+$color_red: rgb(211, 81, 91);
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin circle-set($size) {
+  width: $size;
+  height: $size;
+  border-radius: $size/2;
+}
+
+@mixin panelList($size) {
+  //$size =100px
+  @include flexCenter;
+  height: $size/2;
+  color: rgb(51, 51, 51);
+  font-size: $size/6.5;
+  margin-top: $size/10;
+  margin-bottom: $size/10;
+  background: rgba(255, 255, 255, 1);
+  display: flex;
+  transition: all 0.3s;
+  cursor: pointer;
+  span {
+    @include flexCenter;
+    transition: all 0.3s;
+    height: $size/2;
+    transform: translateX(-$size * 0.075);
+  }
+  .fontLogo {
+    transition: all 0.3s;
+    opacity: 0;
+    font-size: $size/5;
+    transform: translateX(-$size/10);
+  }
+
+  &:hover {
+    span {
+      transform: translateX($size/50);
+    }
+    .fontLogo {
+      transition: all 0.3s;
+      opacity: 1;
+      transform: translateX(0rem);
+    }
+  }
+}

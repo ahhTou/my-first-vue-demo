@@ -65,6 +65,7 @@
 </template>
 
 <script>
+//v0.1.3
 import drag from './directives/cropper-drag'
 function res() {}
 export default {
@@ -122,7 +123,6 @@ export default {
     exitEditImg() {
       this.isEdit = true
       this.isOpen = false
-      //清空文件表单
       let file = document.getElementById('clear')
       file.value = ''
       let cropper = document.getElementById('selectCropper')
@@ -135,8 +135,15 @@ export default {
       let that = this
       let img = new Image()
       img.onload = function() {
-        const vw = window.innerWidth / 3
-        const vh = window.innerHeight / 1.5
+        let vw = window.innerWidth
+        let vh = window.innerHeight
+        if (vw > vh) {
+          vw = vw / 3
+          vh = vh / 1.5
+        } else {
+          vw = vw / 1.5
+          vh = vh / 2
+        }
         if (this.width >= this.height) {
           that.img.width = vw
           let x = this.height / this.width
@@ -150,17 +157,30 @@ export default {
         }
         that.rawImg.width = this.width
         that.rawImg.height = this.height
-        that.windowsWidth = that.img.width * 1.3
-        that.windwosHeight = that.img.height * 1.3
+        if (vw > vh) {
+          that.windowsWidth = that.img.width * 1.3
+          that.windwosHeight = that.img.height * 1.3
+        } else {
+          that.windowsWidth = that.img.width * 1.2
+          that.windwosHeight = that.img.height * 1.2
+        }
       }
-      console.log('123')
       img.src = imgData
       this.uploadImg = img.src
       this.canvasData = img
     },
     completeCropper() {
+      this.$options
       this.isOpen = false
       this.isEdit = true
+      let file = document.getElementById('clear')
+      file.value = ''
+      let cropper = document.getElementById('selectCropper')
+      cropper.style.left = 'unset'
+      cropper.style.top = 'unset'
+      cropper.style.width = this.theCropper + 'px'
+      cropper.style.height = this.theCropper + 'px'
+
       res(this.theCropperImg)
     },
     open(callback) {
@@ -205,7 +225,6 @@ export default {
       })
     }
   },
-  mounted() {},
   watch: {
     isOpen(val) {
       if (val) {
@@ -234,6 +253,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './fade.css';
-@import './scss/main.scss';
+@import './css/fade.css';
+@import './css/main.scss';
 </style>

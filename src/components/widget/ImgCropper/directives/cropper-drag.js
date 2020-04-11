@@ -28,35 +28,71 @@ function doUpdate(el, binding, VNode) {
       const top = el.offsetTop
       const left = el.offsetLeft
       let width = parseInt(odiv.style.width)
-      if (left > imgOffsetLeft + scrollSetting) {
-        console.log('最左')
-      }
-      if (top > imgOffsetTop + scrollSetting) {
-        console.log('最顶')
-      }
-      if (top + width < imgOffsetTopMax - scrollSetting) {
-        console.log('最底')
-      }
-      if (left + width < imgOffsetLeftMax - scrollSetting) {
-        console.log('追右')
-      }
-
       if (
+        //临界
         top > imgOffsetTop + scrollSetting &&
         top + width < imgOffsetTopMax - scrollSetting &&
         left > imgOffsetLeft + scrollSetting &&
-        left + width < imgOffsetLeftMax - scrollSetting
+        left + width < imgOffsetLeftMax - scrollSetting &&
+        nowWidth < cropperMaxSize &&
+        event.wheelDelta > 0
       ) {
+        nowWidth += scrollSetting
+        el.style.width = nowWidth + 'px'
+        el.style.height = nowWidth + 'px'
+        el.style.left = el.offsetLeft - scrollSetting / 2 + 'px'
+        el.style.top = el.offsetTop - scrollSetting / 2 + 'px'
+        theCropperOffsetLeft = el.offsetLeft
+        theCropperOffsetTop = el.offsetTop
+      } else {
+        //处理临界
         if (event.wheelDelta > 0 && nowWidth < cropperMaxSize) {
           nowWidth += scrollSetting
+          //左
+          if (
+            left <= imgOffsetLeft + scrollSetting &&
+            el.style.left != imgOffsetLeft + 'px'
+          ) {
+            el.style.left = imgOffsetLeft + 'px'
+          }
+          //顶
+          if (
+            top <= imgOffsetTop + scrollSetting &&
+            el.style.top != imgOffsetTop + 'px'
+          ) {
+            el.style.top = imgOffsetTop + 'px'
+          }
+          //右
+          if (
+            left >= imgOffsetLeftMax - scrollSetting - width &&
+            el.style.left != imgOffsetLeftMax - width + 'px'
+          ) {
+            el.style.left = imgOffsetLeftMax - width + 'px'
+          }
+          //底
+          if (
+            top >= imgOffsetTopMax - scrollSetting - width &&
+            el.style.top != imgOffsetTopMax - width + 'px'
+          ) {
+            el.style.top = imgOffsetTopMax - width + 'px'
+          }
           el.style.width = nowWidth + 'px'
           el.style.height = nowWidth + 'px'
-          el.style.left = el.offsetLeft - scrollSetting / 2 + 'px'
-          el.style.top = el.offsetTop - scrollSetting / 2 + 'px'
-          theCropperOffsetLeft = el.offsetLeft
-          theCropperOffsetTop = el.offsetTop
+          if (
+            parseInt(el.style.top) >
+            imgOffsetTopMax - parseInt(el.style.width)
+          ) {
+            el.style.top = imgOffsetTopMax - parseInt(el.style.width) + 'px'
+          }
+          if (
+            parseInt(el.style.left) >
+            imgOffsetLeftMax - parseInt(el.style.width)
+          ) {
+            el.style.left = imgOffsetLeftMax - parseInt(el.style.width) + 'px'
+          }
         }
       }
+
       if (event.wheelDelta < 0 && nowWidth > cropperMinSize) {
         nowWidth -= scrollSetting
         el.style.width = nowWidth + 'px'
@@ -65,17 +101,14 @@ function doUpdate(el, binding, VNode) {
         el.style.top = el.offsetTop + scrollSetting / 2 + 'px'
         theCropperOffsetLeft = el.offsetLeft
         theCropperOffsetTop = el.offsetTop
-      } else {
-        el.style.width = cropperMaxSize + 'px'
-        el.style.height = cropperMaxSize + 'px'
-        el.style.left = theCropperOffsetLeftZero + 'px'
-        el.style.top = theCropperOffsetTopZero + 'px'
-        _this.$toast('已还原裁剪框')
       }
     }
   }
   odiv.onmouseenter = e => {
     window.onmousewheel = wheel
+  }
+  odiv.onmouseleave = e => {
+    window.onmousewheel = null
   }
   odiv.onmousedown = e => {
     window.onmousewheel = null
