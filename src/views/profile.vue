@@ -1,8 +1,6 @@
 <template>
-  <div id="test">
-    <div id="content">
-      <plate-profile></plate-profile>
-    </div>
+  <div id="content">
+    <plate-profile></plate-profile>
   </div>
 </template>
 
@@ -17,10 +15,12 @@ export default {
 </script>
 
 <style scoped>
-#test {
-  height: 100vw;
-}
 #content {
-  margin: 20vh 10vw 0 10vw;
+  flex: 1;
+  margin-top: 20vh;
+  padding: 10px;
+  background: black;
+  display: flex;
+  justify-content: center;
 }
 </style>

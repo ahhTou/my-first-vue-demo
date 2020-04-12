@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="wrap">
     <tow-color-bg />
     <back-to-top />
     <div :class="bgMask" />
@@ -21,7 +21,7 @@ import backToTop from 'components/common/backToTop/mian'
 import UserHatch from 'components/common/UserHatch/UserHatch'
 import { getAccountBaseMsg } from 'network/accountMsg'
 export default {
-  name: 'App',
+  name: 'Index',
   components: {
     backToTop,
     towColorBg,
@@ -91,10 +91,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import 'assets/css/base.css';
-@import 'assets/scss/normal.scss';
-@import 'assets/css/normalize.css';
+<style lang="scss" scoped>
+@import '~assets/css/base.css';
+@import '~assets/scss/normal.scss';
+@import '~assets/css/normalize.css';
 @mixin bg-pos {
   position: fixed;
   top: -50px;
@@ -102,12 +102,15 @@ export default {
   right: -50px;
   bottom: -50px;
 }
-#app {
+#wrap {
   @include flexCenter();
-  #userhatch_wrapper {
-    position: absolute;
-    top: 10px;
-    left: 10px;
+  #header {
+    #userhatch_wrapper {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 100;
+    }
   }
   #content {
     display: flex;

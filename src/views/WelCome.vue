@@ -6,8 +6,7 @@
         <template v-slot:little>{{ username }}</template>
       </body-title>
       <nav-bar></nav-bar>
-
-      <div id="Content">
+      <div id="content">
         <content-plate></content-plate>
       </div>
     </div>
@@ -59,7 +58,7 @@ export default {
 #welBody {
   overflow: hidden;
 }
-#Content {
+#content {
   display: flex;
   justify-content: center;
 }

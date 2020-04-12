@@ -6,7 +6,5 @@
 .fade-leave-to {
   opacity: 0;
   transform: translateY(-20px);
-  /* overflow: hidden; */
-  /* backface-visibility: hidden; */
   position: absolute;
 }

@@ -8,7 +8,6 @@
       </little-plate>
     </div>
 
-    <div id="extraPlate">
       <div class="littlePlate">
         <little-plate :data1="sondata[2]">
           <template v-slot:title>
@@ -38,7 +37,6 @@
         </little-plate>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -70,13 +68,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style  lang='scss' scoped>
+@import 'assets/scss/normal';
 @import url("./lib/main_pc.css") screen and (min-width: 768px);
 @import url("./lib/main_mobile.css") screen and (max-width: 768px);
 #body {
+  flex-wrap: wrap;
   display: flex;
   position: relative;
-  flex-wrap: wrap;
   justify-content: center;
 }
 #extraPlate {
