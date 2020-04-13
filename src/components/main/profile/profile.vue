@@ -3,7 +3,7 @@
     <wrapper>
       <template v-slot:title>个人档案</template>
       <template v-slot:main>
-        <div id="slotContent">
+        <div id="content">
           <div id="header">
             <input
               id="clear"
@@ -30,7 +30,9 @@
             <button class="btnEdit" @click="changeEdit" v-show="!isEdit">
               编辑
             </button>
-            <button class="btnEdit" @click="edit" v-show="isEdit">完成</button>
+            <button class="btnEdit" @click="submit" v-show="isEdit">
+              完成
+            </button>
           </div>
         </div>
       </template>
@@ -42,6 +44,8 @@
 <script>
 import wrapper from './wrapper'
 import imgCropper from 'components/widget/ImgCropper/main.vue'
+import isEqual from 'assets/js/isEqual.js'
+import { setAccountBaseMsg } from 'network/accountMsg.js'
 export default {
   name: 'profie',
   data() {
@@ -52,8 +56,10 @@ export default {
         nickname: 'nickname 未加载',
         profilePhoto: ''
       },
+      old_msg: '',
       uploadImg: '',
-      isEdit: false
+      isEdit: false,
+      photoIsChange: false
     }
   },
   methods: {
@@ -70,10 +76,24 @@ export default {
         const _this = this
         this.$refs.cropper.open(res => {
           _this.msg.profilePhoto = res
+          _this.photoIsChange = true
         })
       }
     },
-    edit() {}
+    submit() {
+      console.log()
+      if (!isEqual(this.old_msg, this.msg)) {
+        //同步
+        if (!this.photoIsChange) {
+          delete this.msg.profilePhoto
+          console.log('删除了')
+        }
+        setAccountBaseMsg(this.msg).then(res => {
+          console.log(res)
+        })
+      }
+      this.isEdit = !this.isEdit
+    }
   },
   components: {
     wrapper,
@@ -81,9 +101,11 @@ export default {
   },
   created() {
     this.msg = this.$store.getters.getUserBaseMsg
+    this.old_msg = this.msg
   },
   mounted() {
     this.msg = this.$store.getters.getUserBaseMsg
+    this.old_msg = this.msg
   },
   computed: {
     thisMsg() {
@@ -93,7 +115,6 @@ export default {
   watch: {
     thisMsg: {
       handler() {
-        console.log('123')
         this.msg = this.$store.getters.getUserBaseMsg
       },
       immediate: true,
@@ -101,7 +122,6 @@ export default {
     },
     msg: {
       handler(newName, oldName) {
-        console.log('321')
         this.style = {
           backgroundImage: 'url(' + this.msg.profilePhoto + ')',
           backgroundSize: 'cover'

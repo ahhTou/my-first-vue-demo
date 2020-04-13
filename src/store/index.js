@@ -20,6 +20,8 @@ const state = {
     lgoinBlockIsShow:false,
     registerIsShow:false,
     welcomeIsShow: false,
+    profileIsSHow:false,
+
   },
   views: {
     show: false,

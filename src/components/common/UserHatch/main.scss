@@ -1,23 +1,22 @@
-@import './css/need';
+@import './mixin';
 #wrap {
+  $color_red: rgb(211, 81, 91);
   $wrap-width: 220px;
   $photo_width: $wrap-width * 0.4;
   $photo_wrap_width: $photo_width * 1.02;
   $panel_top: $photo_width * 0.75;
   position: relative;
-  z-index: 99;
   display: flex;
-  justify-content: center;
+  z-index: 99;
   width: $wrap-width;
   .photo_wrap {
     @include flexCenter;
     @include circle-set($photo_wrap_width);
-    position: absolute;
+    position: relative;
     z-index: 99;
     background: rgba(255, 255, 255, 0);
     transition: all 0.5s;
     transform-origin: 50% 0%;
-
     .photo {
       @include circle-set($photo_width);
       opacity: 0.9;

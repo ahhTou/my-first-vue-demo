@@ -47,8 +47,12 @@ export default {
         this.$store.commit('closeLogin')
         this.$router.go(0)
       } else {
-        if (this.$route.path !== item.url) this.$router.push(item.url)
-        else this.$router.go(0)
+        if (this.$route.path !== item.url) {
+          this.$store.commit('changeViews')
+          setTimeout(() => {
+            this.$router.push(item.url)
+          }, 300)
+        } else this.$router.go(0)
       }
     },
     panelBiger: function() {
@@ -86,6 +90,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './css/main';
-@import './css/vue_need';
+@import './main';
+a {
+  text-decoration: none;
+}
+
+.photo_hover {
+  opacity: 1;
+}
+.photo_wrap_hover {
+  transform: scale(1.3, 1.3);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.fadePanel-enter-active,
+.fadePanel-leave-active {
+  transition: all 0.3s;
+}
+.fadePanel-enter,
+.fadePanel-leave-to {
+  position: absolute;
+  opacity: 0;
+  transform: scale(1, 0);
+}
 </style>

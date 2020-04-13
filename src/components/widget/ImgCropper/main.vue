@@ -180,7 +180,6 @@ export default {
       cropper.style.top = 'unset'
       cropper.style.width = this.theCropper + 'px'
       cropper.style.height = this.theCropper + 'px'
-
       res(this.theCropperImg)
     },
     open(callback) {
@@ -206,23 +205,23 @@ export default {
         canvas.height,
         canvas.height
       )
-      // var image = new Image()
-      // image.src = canvas.toDataURL('image/png')
-      // this.theCropperImg = image.src
-      // this.isEdit = false
-      new Promise((reslove, reject) => {
-        canvas.toBlob(blob => {
-          const url = URL.createObjectURL(blob)
-          const res = {
-            url,
-            blob
-          }
-          reslove(res)
-        })
-      }).then(res => {
-        this.theCropperImg = res.url
-        this.isEdit = false
-      })
+      var image = new Image()
+      image.src = canvas.toDataURL('image/png')
+      this.theCropperImg = image.src
+      this.isEdit = false
+      // new Promise((reslove, reject) => {
+      //   canvas.toBlob(blob => {
+      //     const url = URL.createObjectURL(blob)
+      //     const res = {
+      //       url,
+      //       blob
+      //     }
+      //     reslove(res)
+      //   })
+      // }).then(res => {
+      //   this.theCropperImg = res.url
+      //   this.isEdit = false
+      // })
     }
   },
   watch: {

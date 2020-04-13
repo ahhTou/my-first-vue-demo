@@ -8,7 +8,7 @@ const routes = [
   {
     path: '/account/profile',
     name: 'profile',
-    component: () => import("views/profile"),
+    component: () => import('views/profile'),
     meta: {
       title: '个人档案',
       type: 'login'
@@ -17,47 +17,46 @@ const routes = [
   {
     path: '/account',
     name: 'account',
-    component: () => import("views/loginOrRegister"),
+    component: () => import('views/loginOrRegister'),
     redirect: '/404',
     children: [
       {
         path: '/account/register',
         name: 'register',
-        component: () => import("components/main/account/Register.vue"),
+        component: () => import('components/main/account/Register.vue'),
         meta: {
           title: '注册',
-          type: 'noLogin',
-        },
+          type: 'noLogin'
+        }
       },
       {
         path: '/account/login',
         name: 'login',
-        component: () => import("components/main/account/Login"),
+        component: () => import('components/main/account/Login'),
         meta: {
           title: '登录',
-          type: 'noLogin',
-        },
-      },
+          type: 'noLogin'
+        }
+      }
     ]
   },
   {
     path: '/',
     name: 'Home',
-    component: () => import("views/WelCome"),
+    component: () => import('views/WelCome'),
     meta: {
       title: '主页',
-      noKeepAlive: true,
-    },
+      noKeepAlive: true
+    }
   },
   {
     path: '/404',
     name: 'err404',
-    component: () => import("views/other/404"),
+    component: () => import('views/other/404'),
     meta: {
       title: '404'
     }
   }
-
 ]
 
 const router = new VueRouter({
@@ -71,20 +70,17 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) document.title = to.meta.title
   if (type === 'noLogin') {
     if (window.localStorage.getItem('login') === 'true') {
-      store.state.routerViews.welcomeIsShow = true;
+      store.state.routerViews.welcomeIsShow = true
       next('/')
     } else next()
   }
 
   if (type === 'login') {
     if (window.localStorage.getItem('login') !== 'true') {
-      store.state.routerViews.welcomeIsShow = true;
+      store.state.routerViews.welcomeIsShow = true
       next('/')
     } else next()
-  }
-
-  else next()
-
+  } else next()
 })
 
 export default router

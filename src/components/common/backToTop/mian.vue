@@ -14,7 +14,7 @@
 
 
 <script>
-import isMobile from "../isMobile.js";
+import isMobile from "./isMobile.js";
 export default {
   name: "backToUp",
   data() {

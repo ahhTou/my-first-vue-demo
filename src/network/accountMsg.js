@@ -40,3 +40,11 @@ export function getAccountBaseMsg(token){
     data:{ token },
   })
 }
+export function setAccountBaseMsg(msg){
+  return request({
+    url:'api/setAccountBaseMsg',
+    method:'post',
+    query:{ msg },
+    data:{ msg },
+  })
+}

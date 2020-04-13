@@ -1,7 +1,9 @@
 <template>
-  <div id="content">
-    <plate-profile></plate-profile>
-  </div>
+  <transition name="fade" mode="out-in">
+    <div id="content" v-if="$store.state.routerViews.profileIsSHow">
+      <plate-profile></plate-profile>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -10,16 +12,20 @@ export default {
   name: 'profile',
   components: {
     plateProfile
+  },
+  mounted() {
+    this.$store.state.routerViews.profileIsSHow = true
+    document.title = this.$route.meta.title
   }
 }
 </script>
 
 <style scoped>
+@import url('./lib/fade.css');
 #content {
   flex: 1;
   margin-top: 20vh;
   padding: 10px;
-  background: black;
   display: flex;
   justify-content: center;
 }
