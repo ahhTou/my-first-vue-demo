@@ -142,28 +142,42 @@ router.post('/getAccountBaseMsg', function(req, res) {
 router.post('/setAccountBaseMsg', function(req, res) {
   let data = req.body.msg
   const checkToken = Token.checkToken(req, 'ahhtou')
-  if (data.profilePhoto) {
-    let img = data.profilePhoto
-    img = img.replace(/^data:image\/\w+;base64,/, '')
-    const buffer = Buffer.from(img, 'base64')
-    fs.writeFile('ahhtou.jpg', buffer, (err, res) => {
-      if (err) {
-        console.log('失败')
-      } else {
-        console.log('成功')
-      }
-    })
-  }
   if (checkToken !== 'err') {
-    setAccountBaseMsg
-      .where({ id: checkToken })
-      .updateOne({ $set: data }, (err, result) => {
-        if (err) {
-          return res.send('Server Err')
-        } else {
-          res.send(result)
+    new Promise((reslove, reject) => {
+      if (data.profilePhoto) {
+        try {
+          let path = './public/img/profilePhoto/'
+          let id = checkToken
+          let format = '.jpg'
+          let url = path + id + format
+          let img = data.profilePhoto
+          img = img.replace(/^data:image\/\w+;base64,/, '')
+          const buffer = Buffer.from(img, 'base64')
+          fs.writeFile(url, buffer, (err, res) => {
+            if (err) {
+              console.log('-1')
+            } else {
+              reslove()
+            }
+          })
+        } catch (err) {
+          res.send('-2')
         }
-      })
+      } else {
+        reslove()
+      }
+    }).then(() => {
+      delete data.profilePhoto
+      setAccountBaseMsg
+        .where({ id: checkToken })
+        .updateOne({ $set: data }, (err, result) => {
+          if (err) {
+            res.send('0')
+          } else {
+            res.send('1')
+          }
+        })
+    })
   }
 })
 module.exports = router

@@ -4,28 +4,33 @@
     <back-to-top />
     <div :class="bgMask" />
     <div id="header">
+      <navbar />
       <div id="userhatch_wrapper" v-show="$store.state.login">
-        <user-hatch />
+        <userhatch />
       </div>
     </div>
     <div id="content">
       <div id="theTouchBg" :style="theTouchBgStyle" />
-      <router-view />
+      <transition name="router-fade" mode="out-in">
+        <router-view />
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
-import towColorBg from 'components/common/twoColorBackGround/bg'
-import backToTop from 'components/common/backToTop/mian'
-import UserHatch from 'components/common/UserHatch/UserHatch'
-import { getAccountBaseMsg } from 'network/accountMsg'
+import towColorBg from 'components/common/two-color-background/index'
+import backToTop from 'components/common/click-to-top/index'
+import Userhatch from 'components/common/user-hatch/index'
+import navbar from 'components/common/navbar/index'
+import { default as GetUserBaseData } from 'assets/js/get-account-base-msg-Api.js'
 export default {
   name: 'Index',
   components: {
     backToTop,
     towColorBg,
-    UserHatch
+    Userhatch,
+    navbar
   },
   data() {
     return {
@@ -66,26 +71,14 @@ export default {
     isLgoin(val) {
       if (window.localStorage.getItem('login') === 'true') {
         const token = window.localStorage.getItem('token')
-        getAccountBaseMsg().then(result => {
-          if (result.data !== 'err') {
-            this.$store.commit('setUserBaseMsg', result.data)
-          } else {
-            this.$store.commit('closeLogin')
-          }
-        })
+        GetUserBaseData(this)
       }
     }
   },
   created() {
     if (window.localStorage.getItem('login') === 'true') {
       const token = window.localStorage.getItem('token')
-      getAccountBaseMsg().then(result => {
-        if (result.data !== 'err') {
-          this.$store.commit('setUserBaseMsg', result.data)
-        } else {
-          this.$store.commit('closeLogin')
-        }
-      })
+      GetUserBaseData(this)
     }
   }
 }
@@ -134,5 +127,19 @@ export default {
   .bgb2 {
     opacity: 0;
   }
+}
+.router-fade-enter-active {
+  transition: all 0.3s;
+}
+.router-fade-leave-active {
+  transition: all 0.3s;
+}
+.router-fade-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+.router-fade-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
 }
 </style>

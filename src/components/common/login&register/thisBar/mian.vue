@@ -1,65 +1,60 @@
 <template>
-  <div id="thisBarBody">
+  <div id="wrap">
     <button class="btn" id="btn1" @click="goHome">﹤</button>
-    <div id="mainBar">{{ $route.meta.title }}</div>
+    <div id="title">{{ $route.meta.title }}</div>
     <button class="btn" id="btn2" @click="goWhere">{{ btnName }}</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "thisBar",
+  name: 'thisBar',
   data() {
     return {
-      btnName: ""
-    };
+      btnName: ''
+    }
   },
   computed: {
     btnNameWatch() {
-      this.changeName();
-      return this.$route.name;
+      this.changeName()
+      return this.$route.name
     }
   },
 
   watch: {
     btnNameWatch() {
-      this.changeName();
+      this.changeName()
     }
   },
   methods: {
     changeName() {
-      if (this.$route.name === "login") {
-        this.btnName = "register";
+      if (this.$route.name === 'login') {
+        this.btnName = 'register'
       } else {
-        this.btnName = "login";
+        this.btnName = 'login'
       }
     },
     goHome() {
-      this.$store.commit("changeViews");
-      setTimeout(() => {
-        this.$router.push("/");
-      }, 300);
+      this.$router.push('/')
     },
     goWhere() {
-      let name = this.$route.name;
-      this.$store.commit("changeViews");
-      this.$store.state.routerViews.loginOrRegisterIsShow = true;
-      if (name === "login") this.$router.push("/account/register");
-      else this.$router.push("/account/login");
+      let name = this.$route.name
+      if (name === 'login') this.$router.push('/account/register')
+      else this.$router.push('/account/login')
     }
   }
-};
+}
 </script>
 
 <style scoped>
-@import url("~assets/css/normalize.css");
+@import url('~assets/css/normalize.css');
 button {
   margin: 0;
   padding: 0;
   border: 1px solid transparent;
   outline: none;
 }
-#thisBarBody {
+#wrap {
   padding-top: 30px;
   margin: 10px;
   display: flex;
@@ -81,7 +76,7 @@ button {
 .btn:hover {
   animation: btnAni 0.8s;
 }
-#mainBar {
+#title {
   font-size: 30px;
   color: white;
   flex: 1;

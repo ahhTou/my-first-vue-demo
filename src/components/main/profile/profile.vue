@@ -48,6 +48,10 @@ import isEqual from 'assets/js/isEqual.js'
 import { setAccountBaseMsg } from 'network/accountMsg.js'
 export default {
   name: 'profie',
+  components: {
+    wrapper,
+    imgCropper
+  },
   data() {
     return {
       style: '',
@@ -64,10 +68,9 @@ export default {
   },
   methods: {
     changeEdit() {
-      this.isEdit = !this.isEdit
+      this.isEdit = true
     },
     changePhoto() {
-      this.isEdit = !this.isEdit
       let file = document.querySelector('input[type=file]').files[0]
       let reader = new FileReader()
       reader.readAsDataURL(file)
@@ -75,30 +78,44 @@ export default {
         this.uploadImg = reader.result
         const _this = this
         this.$refs.cropper.open(res => {
+          _this.isEdit = true
           _this.msg.profilePhoto = res
           _this.photoIsChange = true
         })
       }
     },
     submit() {
-      console.log()
-      if (!isEqual(this.old_msg, this.msg)) {
-        //同步
+      let profilePhoto
+      if (
+        (!isEqual(this.old_msg, this.msg) || this.photoIsChange) &&
+        (this.msg.nickname !== '' || this.msg.nickname !== null)
+      ) {
         if (!this.photoIsChange) {
+          profilePhoto = this.msg.profilePhoto
           delete this.msg.profilePhoto
-          console.log('删除了')
         }
         setAccountBaseMsg(this.msg).then(res => {
-          console.log(res)
+          const code = res.data
+          if (code == '0') this.$toast('档案更新失败，请重试')
+          if (code == '-1') this.$toast('档案更新失败，写入头像时出现异常')
+          if (code == '-2') this.$toast('档案更新失败，写入头像时捕捉到异常')
+          if (code == '1') {
+            this.$toast('档案更新成功')
+            if (!this.photoIsChange) {
+              this.msg.profilePhoto = profilePhoto
+            }
+            this.$store.commit('setUserBaseMsg', this.msg)
+            this.photoIsChange = false
+            this.isEdit = false
+          }
         })
+      } else {
+        this.$toast('档案未改变')
+        this.isEdit = false
       }
-      this.isEdit = !this.isEdit
     }
   },
-  components: {
-    wrapper,
-    imgCropper
-  },
+
   created() {
     this.msg = this.$store.getters.getUserBaseMsg
     this.old_msg = this.msg
@@ -121,7 +138,7 @@ export default {
       deep: true
     },
     msg: {
-      handler(newName, oldName) {
+      handler() {
         this.style = {
           backgroundImage: 'url(' + this.msg.profilePhoto + ')',
           backgroundSize: 'cover'
@@ -136,5 +153,76 @@ export default {
 
 <style lang="scss" scoped>
 @import url('~assets/css/base.css');
-@import './css/main';
+@mixin ncikname($opacity) {
+  padding-left: 5px;
+  color: $color_pink;
+  font-size: 25px;
+  margin: 0 0 10px 0;
+  border: 1px solid rgba(170, 170, 170, $opacity);
+}
+$color_pink: #d3515b;
+input[type='file'] {
+  opacity: 0;
+  position: absolute;
+}
+input {
+  outline: none;
+  border: 1px solid #aaa;
+  padding: 0;
+}
+
+#content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  #header {
+    display: flex;
+    .profilePhoto {
+      cursor: pointer;
+      $width: 100px;
+      width: $width;
+      height: $width;
+      border-radius: $width/2;
+    }
+    #headerTitle {
+      width: 250px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      .nickname {
+        @include ncikname(0);
+      }
+      #nickname {
+        @include ncikname(1);
+      }
+      .id {
+        padding-left: 5px;
+        align-self: stretch;
+        font-size: 20px;
+      }
+    }
+  }
+  #center {
+    flex: 1;
+  }
+  #footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .btnEdit {
+      flex: 1;
+      height: 50px;
+      outline: none;
+      border: none;
+      font-size: 20px;
+      border-radius: 5px;
+      transition: all 0.3s;
+      background: rgba(222, 225, 230, 0.8);
+      margin: 2%;
+      &:hover {
+        background: rgb(222, 225, 230);
+      }
+    }
+  }
+}
 </style>

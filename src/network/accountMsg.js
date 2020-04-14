@@ -1,50 +1,48 @@
-import { request }  from "./request"
+import { request } from './request'
 
 export function checkUsername(username) {
   return request({
-    url:'api/accountCheckUsername',
-    method:'post',
-    query:{ username },
-    data:{ username }
+    url: 'api/accountCheckUsername',
+    method: 'post',
+    query: { username },
+    data: { username }
   })
 }
 export function checkEmail(email) {
   return request({
-    url:'api/accountCheckEmail',
-    method:'post',
-    query:{ email },
-    data:{ email }
+    url: 'api/accountCheckEmail',
+    method: 'post',
+    query: { email },
+    data: { email }
   })
 }
 export function registerAccount(account) {
   return request({
-    url:'api/registerAccount',
-    method:'post',
-    query:{ account },
-    data:{ account }
+    url: 'api/registerAccount',
+    method: 'post',
+    query: { account },
+    data: { account }
   })
 }
 export function loginAccount(account) {
   return request({
-    url:'api/loginAccount',
-    method:'post',
-    query:{ account },
-    data:{ account },
+    url: 'api/loginAccount',
+    method: 'post',
+    query: { account },
+    data: { account }
   })
 }
-export function getAccountBaseMsg(token){
+export function getAccountBaseMsg() {
   return request({
-    url:'api/getAccountBaseMsg',
-    method:'post',
-    query:{ token },
-    data:{ token },
+    url: 'api/getAccountBaseMsg',
+    method: 'post'
   })
 }
-export function setAccountBaseMsg(msg){
+export function setAccountBaseMsg(msg) {
   return request({
-    url:'api/setAccountBaseMsg',
-    method:'post',
-    query:{ msg },
-    data:{ msg },
+    url: 'api/setAccountBaseMsg',
+    method: 'post',
+    query: { msg },
+    data: { msg }
   })
 }

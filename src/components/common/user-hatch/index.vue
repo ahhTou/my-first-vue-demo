@@ -57,13 +57,13 @@ export default {
     },
     panelBiger: function() {
       this.panelShow = true
-      this.photo_wrap.photo_wrap_hover = true
       this.photo.photo_hover = true
+      this.photo_wrap.photo_wrap_hover = true
     },
     panelLitter: function() {
       this.panelShow = false
-      this.photo_wrap.photo_wrap_hover = false
       this.photo.photo_hover = false
+      this.photo_wrap.photo_wrap_hover = false
     }
   },
   computed: {
@@ -95,13 +95,8 @@ a {
   text-decoration: none;
 }
 
-.photo_hover {
-  opacity: 1;
-}
-.photo_wrap_hover {
-  transform: scale(1.3, 1.3);
-  background-color: rgba(255, 255, 255, 1);
-}
+
+
 
 .fadePanel-enter-active,
 .fadePanel-leave-active {

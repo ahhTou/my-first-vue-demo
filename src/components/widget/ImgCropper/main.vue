@@ -209,19 +209,6 @@ export default {
       image.src = canvas.toDataURL('image/png')
       this.theCropperImg = image.src
       this.isEdit = false
-      // new Promise((reslove, reject) => {
-      //   canvas.toBlob(blob => {
-      //     const url = URL.createObjectURL(blob)
-      //     const res = {
-      //       url,
-      //       blob
-      //     }
-      //     reslove(res)
-      //   })
-      // }).then(res => {
-      //   this.theCropperImg = res.url
-      //   this.isEdit = false
-      // })
     }
   },
   watch: {

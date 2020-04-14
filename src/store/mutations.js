@@ -1,13 +1,13 @@
 export default {
   windowsToTop() {
-    var element = document.getElementById("app");
+    var element = document.getElementById('app')
     element.scrollIntoView({
-      behavior: "smooth",
-    });
+      behavior: 'smooth'
+    })
   },
   changeViews(state) {
     for (let a in state.routerViews) {
-      state.routerViews[a] = false;
+      state.routerViews[a] = false
     }
   },
   setUserBaseMsg(state, data) {
@@ -23,9 +23,9 @@ export default {
     state.loginToken = data
   },
   closeLogin(state) {
-    window.localStorage.setItem("token", "");
-    window.localStorage.setItem("login", false);
-    window.localStorage.setItem("rememberMe", false);
+    window.localStorage.setItem('token', '')
+    window.localStorage.setItem('login', false)
+    window.localStorage.setItem('rememberMe', false)
     state.loginToken = ''
     state.login = false
   }

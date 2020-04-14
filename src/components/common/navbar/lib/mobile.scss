@@ -1,0 +1,10 @@
+#navBarBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  #navBody {
+    z-index: 10;
+    bottom: 0;
+    left: 0;
+  }
+}

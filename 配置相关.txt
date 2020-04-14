@@ -15,3 +15,7 @@ git add .
 git commit -m '初始化项目'
 
 git push
+
+
+//重命名
+ git mv -f oldfolder newfolder
