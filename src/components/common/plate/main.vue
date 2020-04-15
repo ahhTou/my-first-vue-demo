@@ -2,7 +2,7 @@
   <div id="body">
     <div id="mainPlate">
       <little-plate :data1="sondata[1]">
-        <template v-slot:title>
+        <template #title>
           <span>{{ sondataTitle[1] }}</span>
         </template>
       </little-plate>
@@ -10,28 +10,28 @@
 
       <div class="littlePlate">
         <little-plate :data1="sondata[2]">
-          <template v-slot:title>
+          <template #title>
             <span>{{ sondataTitle[2] }}</span>
           </template>
         </little-plate>
       </div>
       <div class="littlePlate">
         <little-plate :data1="sondata[0]">
-          <template v-slot:title>
+          <template #title>
             <span>{{ sondataTitle[0] }}</span>
           </template>
         </little-plate>
       </div>
             <div class="littlePlate">
         <little-plate :data1="sondata[2]">
-          <template v-slot:title>
+          <template #title>
             <span>{{ sondataTitle[2] }}</span>
           </template>
         </little-plate>
       </div>
       <div class="littlePlate">
         <little-plate :data1="sondata[0]">
-          <template v-slot:title>
+          <template #title>
             <span>{{ sondataTitle[0] }}</span>
           </template>
         </little-plate>

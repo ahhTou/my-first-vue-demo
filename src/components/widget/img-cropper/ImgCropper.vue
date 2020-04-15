@@ -67,7 +67,7 @@
 <script>
 //v0.1.3
 import drag from './directives/cropper-drag'
-function res() {}
+var res;
 export default {
   name: 'ImgCropper',
   data() {
@@ -101,19 +101,33 @@ export default {
   },
   methods: {
     cropperCoef() {
-      const img = document.getElementById('imgDom')
-      const cropper = document.getElementById('selectCropper')
-      const imgOffsetTop = img.offsetTop
-      const imgOffsetLeft = img.offsetLeft
-      const imgWidth = parseInt(img.style.width)
-      const imgHeight = parseInt(img.style.height)
-      const cropperOffsetTop = cropper.offsetTop
-      const cropperOffsetLeft = cropper.offsetLeft
-      const cropperSize = parseInt(cropper.style.width)
+      //dom元素
+      let [img, cropper] = [
+        document.getElementById('imgDom'),
+        document.getElementById('selectCropper')
+      ]
+      //参数,es6解构
+      let [
+        imgOffsetTop,
+        imgOffsetLeft,
+        cropperOffsetTop,
+        cropperOffsetLeft,
+        imgWidth,
+        imgHeight,
+        cropperSize
+      ] = [
+        img.offsetTop,
+        img.offsetLeft,
+        cropper.offsetTop,
+        cropper.offsetLeft,
+        parseInt(img.style.width),
+        parseInt(img.style.height),
+        parseInt(cropper.style.width)
+      ]
       //系数
-      const coefWidth = (cropperOffsetLeft - imgOffsetLeft) / imgWidth
-      const coefHeight = (cropperOffsetTop - imgOffsetTop) / imgHeight
-      const coefSize = cropperSize / imgWidth
+      let coefWidth = (cropperOffsetLeft - imgOffsetLeft) / imgWidth
+      let coefHeight = (cropperOffsetTop - imgOffsetTop) / imgHeight
+      let coefSize = cropperSize / imgWidth
       this.$options.computed.cropperImg.bind(this)(
         coefWidth,
         coefHeight,
@@ -126,10 +140,8 @@ export default {
       let file = document.getElementById('clear')
       file.value = ''
       let cropper = document.getElementById('selectCropper')
-      cropper.style.left = 'unset'
-      cropper.style.top = 'unset'
-      cropper.style.width = this.theCropper + 'px'
-      cropper.style.height = this.theCropper + 'px'
+      cropper.style.left = cropper.style.top = 'unset'
+      cropper.style.width = cropper.style.height = this.theCropper + 'px'
     },
     setImg(imgData) {
       let that = this
@@ -189,12 +201,12 @@ export default {
   },
   computed: {
     cropperImg(coefWidth, coefHeight, coefSize) {
-      const widthGo = this.rawImg.width * coefWidth
-      const heightGO = this.rawImg.height * coefHeight
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
+      let widthGo = this.rawImg.width * coefWidth
+      let heightGO = this.rawImg.height * coefHeight
+      let canvas = document.createElement('canvas')
+      let ctx = canvas.getContext('2d')
       canvas.height = canvas.width = this.rawImg.width * coefSize
-      const theImg = ctx.drawImage(
+      let theImg = ctx.drawImage(
         this.canvasData,
         widthGo,
         heightGO,
@@ -205,11 +217,14 @@ export default {
         canvas.height,
         canvas.height
       )
-      var image = new Image()
+      let image = new Image()
       image.src = canvas.toDataURL('image/png')
       this.theCropperImg = image.src
       this.isEdit = false
     }
+  },
+  beforeDestroy() {
+    
   },
   watch: {
     isOpen(val) {

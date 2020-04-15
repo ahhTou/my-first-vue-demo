@@ -1,7 +1,7 @@
 import Toast from './toast.vue'
 let instance = false
 let timer = null
-Toast.install = function (Vue) {
+Toast.install = function(Vue) {
   Vue.prototype.$toast = (text, timeOut) => {
     if (!timeOut) timeOut = 5000
     //如果instance不是false则 仅更改text，并且重置timeOut
@@ -12,20 +12,18 @@ Toast.install = function (Vue) {
         instance.changeShow()
         instance = false
       }, timeOut)
-      instance.changeInstance(function () {
+      instance.changeInstance(function() {
         instance = false
         instance = create(Vue, text)
       })
-    }
-    else {
+    } else {
       instance = create(Vue, text)
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-          instance.changeShow()
-          instance = false
-        }, timeOut)
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        instance.changeShow()
+        instance = false
+      }, timeOut)
     }
-
   }
 }
 function create(Vue, text) {
@@ -34,12 +32,11 @@ function create(Vue, text) {
     data() {
       return {
         message: text
-      };
-    },
+      }
+    }
   }).$mount(document.createElement('div'))
   document.body.appendChild(toast.$el)
   return toast
 }
-
 
 export default Toast

@@ -11,10 +11,9 @@
   </div>
 </template>
 
-
 <script>
 export default {
-  name: "toast",
+  name: 'toast',
   data() {
     return {
       isShow: true,
@@ -25,32 +24,32 @@ export default {
       notExit: false,
       alive: true,
       forceClick: false
-    };
+    }
   },
   methods: {
     toNotExit() {
-      this.notExit = true;
+      this.notExit = true
     },
     changeShow(force) {
       if (force) {
-        this.notExit = false;
-        this.forceClick = true;
+        this.notExit = false
+        this.forceClick = true
       }
       if (!this.notExit) {
-        this.wrapper.ani1 = true;
-        this.wrapper.ani2 = false;
+        this.wrapper.ani1 = true
+        this.wrapper.ani2 = false
         setTimeout(() => {
-          this.wrapper.ani1 = false;
-          this.isShow = false;
-          this.notExit = false;
-        }, 400);
+          this.wrapper.ani1 = false
+          this.isShow = false
+          this.notExit = false
+        }, 400)
       }
     },
     changeInstance(callback) {
       if (this.forceClick) {
         if (this.alive) {
-          this.forceClick = false;
-          callback();
+          this.forceClick = false
+          callback()
         }
       }
     }
@@ -58,17 +57,17 @@ export default {
   watch: {
     isShow(val) {
       if (val) {
-        this.alive = true;
-        this.wrapper.ani1 = false;
-        this.wrapper.ani2 = true;
+        this.alive = true
+        this.wrapper.ani1 = false
+        this.wrapper.ani2 = true
       }
     }
   }
-};
+}
 </script>
 <style scoped>
-@import url("./lib/pc.css") screen and (min-width: 768px);
-@import url("./lib/mobile.css") screen and (max-width: 768px);
+@import url('./lib/pc.css') screen and (min-width: 768px);
+@import url('./lib/mobile.css') screen and (max-width: 768px);
 #wrapper {
   display: flex;
   justify-content: center;

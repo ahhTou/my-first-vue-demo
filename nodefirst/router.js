@@ -2,12 +2,11 @@ var express = require('express')
 var router = express.Router()
 var fs = require('fs')
 
-var getPlateMsg = require('./mongoose/WelcomePlateMsg')
-var getAccountMsg = require('./mongoose/accountMsg')
-var getUserHatchDate = require('./mongoose/userhatchMsg')
-
-var getAccountBaseMsg = require('./mongoose/accountBaseMsg')
-var setAccountBaseMsg = require('./mongoose/accountBaseMsg')
+var getPlateMsg = require('./model/WelcomePlateMsg')
+var getAccountMsg = require('./model/accountMsg')
+var getUserHatchDate = require('./model/userhatchMsg')
+var getAccountBaseMsg = require('./model/account-base-msg')
+var setAccountBaseMsg = require('./model/account-base-msg')
 var Token = require('./token/token')
 //得到公共内容
 router.get('/welcomePlateMsg', function(req, res) {

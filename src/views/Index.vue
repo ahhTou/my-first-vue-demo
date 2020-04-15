@@ -1,13 +1,7 @@
 <template>
   <div id="wrap">
-    <tow-color-bg />
-    <back-to-top />
-    <div :class="bgMask" />
     <div id="header">
-      <navbar />
-      <div id="userhatch_wrapper" v-show="$store.state.login">
-        <userhatch />
-      </div>
+      <navbar class="navbar-isShow" />
     </div>
     <div id="content">
       <div id="theTouchBg" :style="theTouchBgStyle" />
@@ -15,21 +9,24 @@
         <router-view />
       </transition>
     </div>
+    <tow-color-bg />
+    <div :class="bgMask" />
+    <back-to-top />
   </div>
 </template>
 
 <script>
 import towColorBg from 'components/common/two-color-background/index'
-import backToTop from 'components/common/click-to-top/index'
-import Userhatch from 'components/common/user-hatch/index'
+import backToTop from 'components/common/click-to-top/ClickToTop'
 import navbar from 'components/common/navbar/index'
+
 import { default as GetUserBaseData } from 'assets/js/get-account-base-msg-Api.js'
+import isMobile from 'assets/js/isMobile.js'
 export default {
   name: 'Index',
   components: {
     backToTop,
     towColorBg,
-    Userhatch,
     navbar
   },
   data() {
@@ -39,15 +36,19 @@ export default {
       index: ''
     }
   },
-  mounted() {
-    const key = window.localStorage.getItem('rememberMe')
-    const token = window.localStorage.getItem('token')
-    const login = window.localStorage.getItem('login')
-    if (key === 'true') this.$store.commit('setLogin', { login, token })
-  },
-  destroyed() {
-    const key = window.localStorage.getItem('rememberMe')
-    if (key === 'false') this.$store.commit('closeLogin')
+  methods: {
+    setLogin() {
+      const key = window.localStorage.getItem('rememberMe')
+      const token = window.localStorage.getItem('token')
+      const login = window.localStorage.getItem('login')
+      if (key === 'true') this.$store.commit('setLogin', { login, token })
+    },
+    getUserBaseData() {
+      if (window.localStorage.getItem('login') === 'true') {
+        const token = window.localStorage.getItem('token')
+        GetUserBaseData(this)
+      }
+    }
   },
   computed: {
     isShow() {
@@ -69,17 +70,18 @@ export default {
         'url(' + this.$store.state.views.bg[val] + ')'
     },
     isLgoin(val) {
-      if (window.localStorage.getItem('login') === 'true') {
-        const token = window.localStorage.getItem('token')
-        GetUserBaseData(this)
-      }
+      this.getUserBaseData()
     }
   },
   created() {
-    if (window.localStorage.getItem('login') === 'true') {
-      const token = window.localStorage.getItem('token')
-      GetUserBaseData(this)
-    }
+    this.getUserBaseData()
+  },
+  mounted() {
+    this.setLogin()
+  },
+  destroyed() {
+    const key = window.localStorage.getItem('rememberMe')
+    if (key === 'false') this.$store.commit('closeLogin')
   }
 }
 </script>
@@ -95,19 +97,26 @@ export default {
   right: -50px;
   bottom: -50px;
 }
+@media screen and (orientation: portrait) {
+  .navbar-isShow {
+    display: none;
+  }
+}
+@media screen and (orientation: landscape) {
+  .navbar-isShow {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+  }
+}
 #wrap {
   @include flexCenter();
-  #header {
-    #userhatch_wrapper {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      z-index: 100;
-    }
-  }
+  overflow: hidden;
+  width: 100%;
   #content {
     display: flex;
-    align-items: center;
+    // align-items: center;
     position: relative;
     #theTouchBg {
       @include bg-pos();
@@ -132,11 +141,11 @@ export default {
   transition: all 0.3s;
 }
 .router-fade-leave-active {
-  transition: all 0.3s;
+  transition: all 0.1s;
 }
 .router-fade-enter {
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(-200px);
 }
 .router-fade-leave-to {
   opacity: 0;

@@ -1,8 +1,8 @@
 <template>
   <div>
     <wrapper>
-      <template v-slot:title>个人档案</template>
-      <template v-slot:main>
+      <template #title>个人档案</template>
+      <template #main>
         <div id="content">
           <div id="header">
             <input
@@ -43,7 +43,7 @@
 
 <script>
 import wrapper from './wrapper'
-import imgCropper from 'components/widget/ImgCropper/main.vue'
+import imgCropper from 'components/widget/img-cropper/ImgCropper.vue'
 import isEqual from 'assets/js/isEqual.js'
 import { setAccountBaseMsg } from 'network/accountMsg.js'
 export default {
@@ -96,17 +96,27 @@ export default {
         }
         setAccountBaseMsg(this.msg).then(res => {
           const code = res.data
-          if (code == '0') this.$toast('档案更新失败，请重试')
-          if (code == '-1') this.$toast('档案更新失败，写入头像时出现异常')
-          if (code == '-2') this.$toast('档案更新失败，写入头像时捕捉到异常')
-          if (code == '1') {
-            this.$toast('档案更新成功')
-            if (!this.photoIsChange) {
-              this.msg.profilePhoto = profilePhoto
-            }
-            this.$store.commit('setUserBaseMsg', this.msg)
-            this.photoIsChange = false
-            this.isEdit = false
+          switch (code) {
+            case 0:
+              this.$toast('档案更新失败，更新后台时出现问题')
+              break
+            case -1:
+              this.$toast('档案更新失败，写入头像时出现异常')
+              break
+            case -2:
+              this.$toast('档案更新失败，写入头像时捕捉到异常')
+              break
+            case 1:
+              this.$toast('档案更新成功')
+              if (!this.photoIsChange) {
+                this.msg.profilePhoto = profilePhoto
+              }
+              this.$store.commit('setUserBaseMsg', this.msg)
+              this.photoIsChange = false
+              this.isEdit = false
+              break
+            default:
+              this.$toast('档案可能没有更新')
           }
         })
       } else {

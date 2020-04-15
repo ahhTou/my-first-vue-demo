@@ -94,10 +94,6 @@ export default {
 a {
   text-decoration: none;
 }
-
-
-
-
 .fadePanel-enter-active,
 .fadePanel-leave-active {
   transition: all 0.3s;

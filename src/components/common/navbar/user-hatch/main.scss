@@ -1,12 +1,15 @@
 @import './mixin';
+@import '~assets/scss/normal';
+@import 'components/common/navbar/var';
 #wrap {
   $color_red: rgb(211, 81, 91);
-  $wrap-width: 220px;
   $photo_width: $wrap-width * 0.4;
   $photo_wrap_width: $photo_width * 1.1;
   $panel_top: $photo_width * 0.75;
   position: relative;
   display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 99;
   width: $wrap-width;
   .photo_wrap {
@@ -20,6 +23,7 @@
     .photo {
       @include circle-set($photo_width);
       opacity: 0.9;
+      box-shadow: 0px 0px 10px $shadow;
       cursor: pointer;
     }
     .photo_hover {

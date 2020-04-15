@@ -1,15 +1,16 @@
-let theCropperOffsetLeft
-let theCropperOffsetTop
-let theCropperOffsetLeftZero
-let theCropperOffsetTopZero
-let timer_Wheel = null
-let timer_Move = null
+let theCropperOffsetLeft,
+  theCropperOffsetTop,
+  theCropperOffsetLeftZero,
+  theCropperOffsetTopZero,
+  timer_Wheel = null,
+  timer_Move = null
 function doUpdate(el, binding, VNode) {
   const odiv = el
   const imgWidth = binding.value.width
   const imgHeight = binding.value.height
   const cropperMaxSize = parseInt(el.style.width)
   const cropperMinSize = 50
+
   //判断是否为第一次打开图片
   if (odiv.style.left) {
     odiv.style.left = odiv.offsetLeft + 'px'
@@ -19,17 +20,16 @@ function doUpdate(el, binding, VNode) {
   function wheel(event) {
     if (timer_Wheel) clearTimeout(timer_Wheel)
     timer_Wheel = setTimeout(() => {
-      let el = odiv
-      let nowWidth = parseInt(el.style.width)
       const scrollSetting = 20
       const imgDiv = document.getElementById('imgDom')
       const imgOffsetTop = imgDiv.offsetTop
       const imgOffsetLeft = imgDiv.offsetLeft
       const imgOffsetTopMax = imgOffsetTop + imgHeight
       const imgOffsetLeftMax = imgOffsetLeft + imgWidth
+      let nowWidth = parseInt(odiv.style.width)
       if (event.wheelDelta) {
-        const top = el.offsetTop
-        const left = el.offsetLeft
+        const top = odiv.offsetTop
+        const left = odiv.offsetLeft
         let width = parseInt(odiv.style.width)
         if (
           //临界
@@ -41,12 +41,12 @@ function doUpdate(el, binding, VNode) {
           event.wheelDelta > 0
         ) {
           nowWidth += scrollSetting
-          el.style.width = nowWidth + 'px'
-          el.style.height = nowWidth + 'px'
-          el.style.left = el.offsetLeft - scrollSetting / 2 + 'px'
-          el.style.top = el.offsetTop - scrollSetting / 2 + 'px'
-          theCropperOffsetLeft = el.offsetLeft
-          theCropperOffsetTop = el.offsetTop
+          odiv.style.width = nowWidth + 'px'
+          odiv.style.height = nowWidth + 'px'
+          odiv.style.left = odiv.offsetLeft - scrollSetting / 2 + 'px'
+          odiv.style.top = odiv.offsetTop - scrollSetting / 2 + 'px'
+          theCropperOffsetLeft = odiv.offsetLeft
+          theCropperOffsetTop = odiv.offsetTop
         } else {
           //处理临界
           if (event.wheelDelta > 0 && nowWidth < cropperMaxSize) {
@@ -54,56 +54,58 @@ function doUpdate(el, binding, VNode) {
             //左
             if (
               left <= imgOffsetLeft + scrollSetting &&
-              el.style.left != imgOffsetLeft + 'px'
+              odiv.style.left != imgOffsetLeft + 'px'
             ) {
-              el.style.left = imgOffsetLeft + 'px'
+              odiv.style.left = imgOffsetLeft + 'px'
             }
             //顶
             if (
               top <= imgOffsetTop + scrollSetting &&
-              el.style.top != imgOffsetTop + 'px'
+              odiv.style.top != imgOffsetTop + 'px'
             ) {
-              el.style.top = imgOffsetTop + 'px'
+              odiv.style.top = imgOffsetTop + 'px'
             }
             //右
             if (
               left >= imgOffsetLeftMax - scrollSetting - width &&
-              el.style.left != imgOffsetLeftMax - width + 'px'
+              odiv.style.left != imgOffsetLeftMax - width + 'px'
             ) {
-              el.style.left = imgOffsetLeftMax - width + 'px'
+              odiv.style.left = imgOffsetLeftMax - width + 'px'
             }
             //底
             if (
               top >= imgOffsetTopMax - scrollSetting - width &&
-              el.style.top != imgOffsetTopMax - width + 'px'
+              odiv.style.top != imgOffsetTopMax - width + 'px'
             ) {
-              el.style.top = imgOffsetTopMax - width + 'px'
+              odiv.style.top = imgOffsetTopMax - width + 'px'
             }
-            el.style.width = nowWidth + 'px'
-            el.style.height = nowWidth + 'px'
+            odiv.style.width = nowWidth + 'px'
+            odiv.style.height = nowWidth + 'px'
             if (
-              parseInt(el.style.top) >
-              imgOffsetTopMax - parseInt(el.style.width)
+              parseInt(odiv.style.top) >
+              imgOffsetTopMax - parseInt(odiv.style.width)
             ) {
-              el.style.top = imgOffsetTopMax - parseInt(el.style.width) + 'px'
+              odiv.style.top =
+                imgOffsetTopMax - parseInt(odiv.style.width) + 'px'
             }
             if (
-              parseInt(el.style.left) >
-              imgOffsetLeftMax - parseInt(el.style.width)
+              parseInt(odiv.style.left) >
+              imgOffsetLeftMax - parseInt(odiv.style.width)
             ) {
-              el.style.left = imgOffsetLeftMax - parseInt(el.style.width) + 'px'
+              odiv.style.left =
+                imgOffsetLeftMax - parseInt(odiv.style.width) + 'px'
             }
           }
         }
 
         if (event.wheelDelta < 0 && nowWidth > cropperMinSize) {
           nowWidth -= scrollSetting
-          el.style.width = nowWidth + 'px'
-          el.style.height = nowWidth + 'px'
-          el.style.left = el.offsetLeft + scrollSetting / 2 + 'px'
-          el.style.top = el.offsetTop + scrollSetting / 2 + 'px'
-          theCropperOffsetLeft = el.offsetLeft
-          theCropperOffsetTop = el.offsetTop
+          odiv.style.width = nowWidth + 'px'
+          odiv.style.height = nowWidth + 'px'
+          odiv.style.left = odiv.offsetLeft + scrollSetting / 2 + 'px'
+          odiv.style.top = odiv.offsetTop + scrollSetting / 2 + 'px'
+          theCropperOffsetLeft = odiv.offsetLeft
+          theCropperOffsetTop = odiv.offsetTop
         }
       }
     })
@@ -113,8 +115,8 @@ function doUpdate(el, binding, VNode) {
     window.onmousewheel = wheel
   }
   odiv.onmouseleave = e => {
-    if (timer_Wheel) clearTimeout(timer_Wheel)
     window.onmousewheel = null
+    if (timer_Wheel) clearTimeout(timer_Wheel)
   }
   odiv.onmousedown = e => {
     window.onmousewheel = null

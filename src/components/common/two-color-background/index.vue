@@ -29,5 +29,6 @@ export default {
   position: absolute;
   top: -30vh;
   z-index: -5;
+  overflow: hidden;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="lorBody">
     <body-title>
-      <template v-slot:big>{{ lrTitle }}</template>
+      <template #big>{{ lrTitle }}</template>
     </body-title>
     <div id="lorRBox">
       <div id="barAndRouterViewsBody">
@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import thisBar from 'components/common/login&register/thisBar/mian'
-import bodyTitle from 'components/main/title'
+import thisBar from 'components/common/login/BlockBar'
+import bodyTitle from 'components/common/body-title/BodyTitle'
 export default {
   name: '',
   data() {

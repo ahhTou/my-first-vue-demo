@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-var getAccountMsg = require('../mongoose/accountMsg');
+const jwt = require('jsonwebtoken')
+var getAccountMsg = require('../model/accountMsg')
 module.exports = {
   checkToken(req, secret) {
     let result = 'err'
@@ -26,9 +26,13 @@ module.exports = {
     return token
   },
   userTokenUpdata(search, updata) {
-    getAccountMsg.updateOne({ id: search.id, password: search.password }, { token: updata.token }, function (err, result) {
-      // if (err) console.log('更新失败')
-      // else console.log('更新成功')
-    })
+    getAccountMsg.updateOne(
+      { id: search.id, password: search.password },
+      { token: updata.token },
+      function(err, result) {
+        // if (err) console.log('更新失败')
+        // else console.log('更新成功')
+      }
+    )
   }
 }

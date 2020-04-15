@@ -8,7 +8,7 @@ const routes = [
   {
     path: '/account/profile',
     name: 'profile',
-    component: () => import('views/profile'),
+    component: () => import('views/Profile'),
     meta: {
       title: '个人档案',
       type: 'login'
@@ -17,13 +17,13 @@ const routes = [
   {
     path: '/account',
     name: 'account',
-    component: () => import('views/loginOrRegister'),
+    component: () => import('views/Login'),
     redirect: '/404',
     children: [
       {
         path: '/account/register',
         name: 'register',
-        component: () => import('components/main/account/Register.vue'),
+        component: () => import('components/main/account/Register'),
         meta: {
           title: '注册',
           type: 'noLogin'
@@ -43,7 +43,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('views/WelCome'),
+    component: () => import('views/Home'),
     meta: {
       title: '主页',
       noKeepAlive: true

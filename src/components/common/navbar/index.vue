@@ -1,19 +1,24 @@
 <template>
   <div id="navBarBody">
     <div id="navBody" :style="navBodyShow">
-      <login-or-register />
       <home-btn />
+      <div id="userhatch-wrap" v-show="$store.state.login">
+        <userhatch />
+      </div>
+      <login-or-register />
     </div>
   </div>
 </template>
 <script>
-import loginOrRegister from 'components/common/login&register/button/index'
+import Userhatch from 'components/common/navbar/user-hatch/index'
+import loginOrRegister from 'components/common/navbar/button/login-and-register/index'
 import homeBtn from 'components/common/navbar/button/home'
 export default {
   name: 'navbar',
   components: {
     loginOrRegister,
-    homeBtn
+    homeBtn,
+    Userhatch
   },
   data() {
     return {
@@ -52,12 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~assets/scss/normal';
-@media screen and (min-width:768px) {
-  @import './lib/pc';
-}
-@media screen and (max-width:768px) {
-  @import './lib/mobile';
-}
+@import 'components/common/navbar/var';
 #navBody {
   @include flexCenter;
   height: 100px;
@@ -66,5 +66,9 @@ export default {
   width: auto;
   box-shadow: 2px 2px 2px $shadow;
   padding: 0px 20px 0px 20px;
+  #userhatch-wrap {
+    @include flexCenter;
+    width: $wrap-width * 0.4;
+  }
 }
 </style>

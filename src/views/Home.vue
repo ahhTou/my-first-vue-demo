@@ -1,8 +1,8 @@
 <template>
   <div id="welBody">
     <body-title>
-      <template v-slot:big>Hi~</template>
-      <template v-slot:little>{{ username }}</template>
+      <template #big>Hi~</template>
+      <template #little>{{ username }}</template>
     </body-title>
 
     <div id="content">
@@ -13,7 +13,7 @@
 
 <script>
 import ContentPlate from 'components/common/plate/main'
-import bodyTitle from 'components/main/title'
+import bodyTitle from 'components/common/body-title/BodyTitle'
 export default {
   name: 'viewsWelCome',
   data() {
@@ -23,7 +23,7 @@ export default {
   },
   components: {
     ContentPlate,
-    bodyTitle,
+    bodyTitle
   },
   computed: {
     userBaseMsg() {

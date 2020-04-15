@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import LoginBlock from 'components/common/login&register/LoginBlock'
+import LoginBlock from 'components/common/login/LoginBlock'
 export default {
   name: 'viewsLogin',
   components: {

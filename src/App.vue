@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <index-views></index-views>
+    <index-views />
   </div>
 </template>
 
 <script>
-import indexViews from 'views/index.vue'
+import indexViews from 'views/Index.vue'
 export default {
   name: 'App',
   components: {
